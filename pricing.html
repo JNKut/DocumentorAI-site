@@ -1,377 +1,727 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricing — DocumentorAI</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #111; background: #fff; }
-    a { text-decoration: none; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #111;
+      background: #fff;
+    }
+
+    a {
+      text-decoration: none;
+    }
 
     /* NAV */
     nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.92); backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid #f0f0f0;
     }
+
     .nav-inner {
-      max-width: 1100px; margin: 0 auto; padding: 0 24px;
-      height: 64px; display: flex; align-items: center; justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .logo { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; color: #111; }
-    .logo-dot { width: 10px; height: 10px; background: #2563eb; border-radius: 50%; display: inline-block; }
-    .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a { font-size: 14px; color: #555; }
-    .nav-links a:hover { color: #111; }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #111;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background: #2563eb;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .nav-links a:hover {
+      color: #111;
+    }
+
     .btn-primary {
-      background: #2563eb; color: #fff; font-size: 14px; font-weight: 600;
-      padding: 10px 20px; border-radius: 10px;
+      background: #2563eb;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 10px;
     }
-    .btn-primary:hover { background: #1d4ed8; }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
 
     /* HERO */
-    .hero { text-align: center; padding: 80px 24px 60px; max-width: 1100px; margin: 0 auto; }
+    .hero {
+      text-align: center;
+      padding: 80px 24px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
     .badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: #eff6ff; color: #2563eb; font-size: 13px; font-weight: 600;
-      padding: 6px 14px; border-radius: 999px; margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
     }
+
     .hero h1 {
-      font-size: clamp(32px, 5vw, 52px); font-weight: 900; letter-spacing: -2px;
-      line-height: 1.08; margin-bottom: 16px;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.08;
+      margin-bottom: 16px;
     }
-    .hero p { font-size: 18px; color: #555; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+
+    .hero p {
+      font-size: 18px;
+      color: #555;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
 
     /* PRICING GRID */
-    .section { padding: 60px 24px 80px; }
-    .section-gray { background: #f9fafb; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; max-width: 980px; margin: 0 auto; }
+    .section {
+      padding: 60px 24px 80px;
+    }
+
+    .section-gray {
+      background: #f9fafb;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 24px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
     .pricing-card {
-      background: #fff; border: 1.5px solid #eee; border-radius: 24px;
-      padding: 36px; position: relative;
+      background: #fff;
+      border: 1.5px solid #eee;
+      border-radius: 24px;
+      padding: 36px;
+      position: relative;
     }
-    .pricing-card.featured { background: #2563eb; border-color: #2563eb; color: #fff; }
+
+    .pricing-card.featured {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #fff;
+    }
+
     .popular-badge {
-      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-      background: #1e3a8a; color: #fff; font-size: 11px; font-weight: 800;
-      padding: 4px 14px; border-radius: 999px; letter-spacing: 1px; text-transform: uppercase;
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e3a8a;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 999px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
-    .plan-name { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 12px; }
-    .pricing-card.featured .plan-name { color: #bfdbfe; }
-    .price { font-size: 52px; font-weight: 900; letter-spacing: -2px; line-height: 1; }
-    .price span { font-size: 18px; font-weight: 500; color: #888; }
-    .pricing-card.featured .price span { color: #bfdbfe; }
-    .plan-desc { font-size: 14px; color: #888; margin: 8px 0 28px; line-height: 1.5; }
-    .pricing-card.featured .plan-desc { color: #bfdbfe; }
-    .feature-list { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 12px; }
-    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #333; }
-    .pricing-card.featured .feature-list li { color: #fff; }
-    .check { color: #22c55e; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
-    .pricing-card.featured .check { color: #86efac; }
+
+    .plan-name {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #888;
+      margin-bottom: 12px;
+    }
+
+    .pricing-card.featured .plan-name {
+      color: #bfdbfe;
+    }
+
+    .price {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    .price span {
+      font-size: 18px;
+      font-weight: 500;
+      color: #888;
+    }
+
+    .pricing-card.featured .price span {
+      color: #bfdbfe;
+    }
+
+    .plan-desc {
+      font-size: 14px;
+      color: #888;
+      margin: 8px 0 28px;
+      line-height: 1.5;
+    }
+
+    .pricing-card.featured .plan-desc {
+      color: #bfdbfe;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .pricing-card.featured .feature-list li {
+      color: #fff;
+    }
+
+    .check {
+      color: #22c55e;
+      font-weight: 900;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .pricing-card.featured .check {
+      color: #86efac;
+    }
+
     .plan-cta {
-      display: block; width: 100%; text-align: center; padding: 14px;
-      border-radius: 12px; font-size: 15px; font-weight: 700;
-      border: 1.5px solid #ddd; color: #333;
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      border: 1.5px solid #ddd;
+      color: #333;
       transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
-    .plan-cta:hover { background: #eff6ff; border-color: #2563eb; color: #2563eb; }
-    .plan-cta.featured-cta { background: #fff; color: #2563eb; border: none; }
-    .plan-cta.featured-cta:hover { background: #eff6ff; }
+
+    .plan-cta:hover {
+      background: #eff6ff;
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+
+    .plan-cta.featured-cta {
+      background: #fff;
+      color: #2563eb;
+      border: none;
+    }
+
+    .plan-cta.featured-cta:hover {
+      background: #eff6ff;
+    }
 
     /* FEATURE COMPARISON */
-    .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 16px; }
-    .compare-table th, .compare-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #f0f0f0; }
-    .compare-table thead th { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #888; background: #f9fafb; }
-    .compare-table thead th:first-child { border-radius: 12px 0 0 0; }
-    .compare-table thead th:last-child { border-radius: 0 12px 0 0; }
-    .compare-table tbody tr:hover { background: #fafafa; }
-    .compare-table .feature-name { font-weight: 500; color: #333; }
-    .compare-table .yes { color: #22c55e; font-weight: 800; font-size: 16px; }
-    .compare-table .no { color: #ccc; font-size: 16px; }
-    .compare-table .val { color: #333; font-weight: 600; }
-    .col-featured { background: #eff6ff; }
-    .section-label { text-align: center; font-size: 13px; font-weight: 700; color: #2563eb; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; }
-    .section-title { text-align: center; font-size: clamp(24px, 4vw, 34px); font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
-    .section-sub { text-align: center; font-size: 16px; color: #666; margin-bottom: 48px; }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 16px;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .compare-table thead th {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #888;
+      background: #f9fafb;
+    }
+
+    .compare-table thead th:first-child {
+      border-radius: 12px 0 0 0;
+    }
+
+    .compare-table thead th:last-child {
+      border-radius: 0 12px 0 0;
+    }
+
+    .compare-table tbody tr:hover {
+      background: #fafafa;
+    }
+
+    .compare-table .feature-name {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .compare-table .yes {
+      color: #22c55e;
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .compare-table .no {
+      color: #ccc;
+      font-size: 16px;
+    }
+
+    .compare-table .val {
+      color: #333;
+      font-weight: 600;
+    }
+
+    .col-featured {
+      background: #eff6ff;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #2563eb;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(24px, 4vw, 34px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 48px;
+    }
 
     /* CTA SECTION */
     .cta-section {
-      background: #2563eb; padding: 80px 24px; text-align: center; color: #fff;
+      background: #2563eb;
+      padding: 80px 24px;
+      text-align: center;
+      color: #fff;
     }
-    .cta-section h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; letter-spacing: -1.5px; margin-bottom: 14px; }
-    .cta-section p { font-size: 18px; color: #bfdbfe; max-width: 480px; margin: 0 auto 36px; line-height: 1.6; }
+
+    .cta-section h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      margin-bottom: 14px;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      color: #bfdbfe;
+      max-width: 480px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+
     .cta-email-btn {
       display: inline-block;
-      background: #fff; color: #2563eb;
-      font-size: 16px; font-weight: 700;
-      padding: 16px 36px; border-radius: 14px;
+      background: #fff;
+      color: #2563eb;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 36px;
+      border-radius: 14px;
       transition: background 0.15s;
     }
-    .cta-email-btn:hover { background: #eff6ff; }
-    .cta-note { margin-top: 18px; font-size: 13px; color: #93c5fd; }
+
+    .cta-email-btn:hover {
+      background: #eff6ff;
+    }
+
+    .cta-note {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #93c5fd;
+    }
 
     /* FAQ */
-    .faq { max-width: 720px; margin: 0 auto; }
-    .faq-item { border-bottom: 1px solid #f0f0f0; padding: 22px 0; }
-    .faq-item:last-child { border-bottom: none; }
-    .faq-q { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-    .faq-a { font-size: 14px; color: #666; line-height: 1.7; }
+    .faq {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 22px 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .faq-a {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
+    }
 
     /* FOOTER */
-    footer { border-top: 1px solid #f0f0f0; padding: 32px 24px; }
-    .footer-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    footer {
+      border-top: 1px solid #f0f0f0;
+      padding: 32px 24px;
     }
-    footer p { font-size: 13px; color: #aaa; }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: #aaa;
+    }
 
     @media (max-width: 600px) {
-      .nav-links a:not(.btn-primary) { display: none; }
-      .compare-table th, .compare-table td { padding: 10px 10px; }
+      .nav-links a:not(.btn-primary) {
+        display: none;
+      }
+
+      .compare-table th,
+      .compare-table td {
+        padding: 10px 10px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a href="index.html" class="logo"><span class="logo-dot"></span> DocumentorAI</a>
-    <div class="nav-links">
-      <a href="index.html#how-it-works">How it works</a>
-      <a href="#pricing">Pricing</a>
-      <a href="mailto:jonahkutikov@gmail.com" class="btn-primary">Contact Us</a>
-    </div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="badge">💬 Plans for every business size</div>
-  <h1>Simple pricing.<br>No surprises.</h1>
-  <p>Pick the plan that fits your business. Get set up the same day. Cancel anytime — no long-term contracts required.</p>
-</div>
-
-<!-- PRICING CARDS -->
-<section class="section" id="pricing" style="padding-top: 0;">
-  <div class="section-inner">
-    <div class="pricing-grid">
-
-      <div class="pricing-card">
-        <div class="plan-name">Starter</div>
-        <div class="price">$49<span>/mo</span></div>
-        <div class="plan-desc">For businesses just getting started with AI customer service.</div>
-        <ul class="feature-list">
-          <li><span class="check">✓</span> 1 AI chatbot deployment</li>
-          <li><span class="check">✓</span> Up to 500 conversations/month</li>
-          <li><span class="check">✓</span> Train on PDF, DOCX & TXT files</li>
-          <li><span class="check">✓</span> Embed on any website (1 line of code)</li>
-          <li><span class="check">✓</span> Custom company name & greeting</li>
-          <li><span class="check">✓</span> Email support</li>
-        </ul>
-        <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Starter%20Plan" class="plan-cta">Get Started — $49/mo</a>
-      </div>
-
-      <div class="pricing-card featured">
-        <div class="popular-badge">MOST POPULAR</div>
-        <div class="plan-name">Pro</div>
-        <div class="price">$99<span>/mo</span></div>
-        <div class="plan-desc">For businesses with real support volume that need unlimited capacity.</div>
-        <ul class="feature-list">
-          <li><span class="check">✓</span> 1 AI chatbot deployment</li>
-          <li><span class="check">✓</span> Unlimited conversations</li>
-          <li><span class="check">✓</span> Train on PDF, DOCX & TXT files</li>
-          <li><span class="check">✓</span> Embed on any website (1 line of code)</li>
-          <li><span class="check">✓</span> Custom branding, greeting & personality</li>
-          <li><span class="check">✓</span> Priority support</li>
-          <li><span class="check">✓</span> Knowledge base updates anytime</li>
-        </ul>
-        <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Pro%20Plan" class="plan-cta featured-cta">Get Started — $99/mo</a>
-      </div>
-
-      <div class="pricing-card">
-        <div class="plan-name">Agency</div>
-        <div class="price">$199<span>/mo</span></div>
-        <div class="plan-desc">For agencies deploying AI chatbots across multiple client businesses.</div>
-        <ul class="feature-list">
-          <li><span class="check">✓</span> Up to 5 AI chatbot deployments</li>
-          <li><span class="check">✓</span> Unlimited conversations across all bots</li>
-          <li><span class="check">✓</span> Train on PDF, DOCX & TXT files</li>
-          <li><span class="check">✓</span> Embed on any website (1 line of code)</li>
-          <li><span class="check">✓</span> White-label — your branding, not ours</li>
-          <li><span class="check">✓</span> Dedicated support</li>
-          <li><span class="check">✓</span> Separate configuration per client</li>
-        </ul>
-        <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Agency%20Plan" class="plan-cta">Get Started — $199/mo</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- FEATURE COMPARISON -->
-<section class="section section-gray">
-  <div class="section-inner">
-    <div class="section-label">Compare Plans</div>
-    <h2 class="section-title">Everything side by side</h2>
-    <p class="section-sub">Not sure which plan is right for you? Here's the full breakdown.</p>
-    <div style="overflow-x: auto; border-radius: 16px; border: 1.5px solid #eee;">
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th>Feature</th>
-            <th>Starter</th>
-            <th class="col-featured">Pro</th>
-            <th>Agency</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="feature-name">Monthly price</td>
-            <td class="val">$49/mo</td>
-            <td class="val col-featured">$99/mo</td>
-            <td class="val">$199/mo</td>
-          </tr>
-          <tr>
-            <td class="feature-name">AI chatbot deployments</td>
-            <td class="val">1</td>
-            <td class="val col-featured">1</td>
-            <td class="val">Up to 5</td>
-          </tr>
-          <tr>
-            <td class="feature-name">Conversations per month</td>
-            <td class="val">Up to 500</td>
-            <td class="val col-featured">Unlimited</td>
-            <td class="val">Unlimited</td>
-          </tr>
-          <tr>
-            <td class="feature-name">Train on your documents</td>
-            <td><span class="yes">✓</span></td>
-            <td class="col-featured"><span class="yes">✓</span></td>
-            <td><span class="yes">✓</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Supported file types</td>
-            <td class="val">PDF, DOCX, TXT</td>
-            <td class="val col-featured">PDF, DOCX, TXT</td>
-            <td class="val">PDF, DOCX, TXT</td>
-          </tr>
-          <tr>
-            <td class="feature-name">Embed on any website</td>
-            <td><span class="yes">✓</span></td>
-            <td class="col-featured"><span class="yes">✓</span></td>
-            <td><span class="yes">✓</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Custom company name</td>
-            <td><span class="yes">✓</span></td>
-            <td class="col-featured"><span class="yes">✓</span></td>
-            <td><span class="yes">✓</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Custom greeting message</td>
-            <td><span class="yes">✓</span></td>
-            <td class="col-featured"><span class="yes">✓</span></td>
-            <td><span class="yes">✓</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Custom AI personality</td>
-            <td><span class="no">—</span></td>
-            <td class="col-featured"><span class="yes">✓</span></td>
-            <td><span class="yes">✓</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">White-label (your branding)</td>
-            <td><span class="no">—</span></td>
-            <td class="col-featured"><span class="no">—</span></td>
-            <td><span class="yes">✓</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Knowledge base updates</td>
-            <td class="val">Anytime</td>
-            <td class="val col-featured">Anytime</td>
-            <td class="val">Anytime</td>
-          </tr>
-          <tr>
-            <td class="feature-name">Support</td>
-            <td class="val">Email</td>
-            <td class="val col-featured">Priority email</td>
-            <td class="val">Dedicated</td>
-          </tr>
-          <tr>
-            <td class="feature-name">Powered by GPT-4o</td>
-            <td><span class="yes">✓</span></td>
-            <td class="col-featured"><span class="yes">✓</span></td>
-            <td><span class="yes">✓</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Cancel anytime</td>
-            <td><span class="yes">✓</span></td>
-            <td class="col-featured"><span class="yes">✓</span></td>
-            <td><span class="yes">✓</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="section">
-  <div class="section-inner">
-    <div class="section-label">FAQ</div>
-    <h2 class="section-title">Common questions</h2>
-    <p class="section-sub">Still have questions? Email us at jonahkutikov@gmail.com.</p>
-    <div class="faq">
-      <div class="faq-item">
-        <div class="faq-q">How do I get started?</div>
-        <div class="faq-a">Email us at jonahkutikov@gmail.com and tell us which plan you're interested in. We'll get your chatbot configured and deployed within 24 hours — no technical knowledge needed on your end.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">What documents can I use to train the AI?</div>
-        <div class="faq-a">You can upload PDF files, Word documents (.docx), or plain text files (.txt). Great candidates include your FAQ page, product catalog, policies, pricing guide, or any support documentation you already have.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">How does the chatbot get embedded on my website?</div>
-        <div class="faq-a">We give you a single line of code to paste into your website. It works on Shopify, Webflow, WordPress, Wix, Squarespace, or any custom site. The chat widget appears in the bottom-right corner of your site automatically.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Can I update the knowledge base after setup?</div>
-        <div class="faq-a">Yes — you can upload a new document at any time through your admin panel. Updates go live instantly. There's no limit on how often you can do this.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">What counts as a "conversation"?</div>
-        <div class="faq-a">A conversation is a single session where a visitor opens the chat widget and sends at least one message. Multiple back-and-forth messages within the same session count as one conversation.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Is there a contract or commitment?</div>
-        <div class="faq-a">No long-term contracts. All plans are month-to-month and you can cancel anytime by emailing us. There are no cancellation fees.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">What is white-label on the Agency plan?</div>
-        <div class="faq-a">White-label means the chatbot shows your company's name and branding — not "DocumentorAI." This is ideal for agencies that want to resell the product under their own brand to their clients.</div>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo"><span class="logo-dot"></span> DocumentorAI</a>
+      <div class="nav-links">
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="mailto:jonahkutikov@gmail.com" class="btn-primary">Contact Us</a>
       </div>
     </div>
-  </div>
-</section>
+  </nav>
 
-<!-- CTA -->
-<div class="cta-section">
-  <h2>Ready to get started?</h2>
-  <p>Send us an email and we'll have your AI assistant live within 24 hours.</p>
-  <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Inquiry" class="cta-email-btn">✉ Get in Touch</a>
-  <p class="cta-note">We reply within a few hours. No sales calls required.</p>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <a href="index.html" class="logo"><span class="logo-dot"></span> DocumentorAI</a>
-    <p>AI customer service for every business.</p>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">💬 Plans for every business size</div>
+    <h1>Simple pricing.<br>No surprises.</h1>
+    <p>Pick the plan that fits your business. Get set up the same day. Cancel anytime — no long-term contracts required.
+    </p>
   </div>
-</footer>
+
+  <!-- PRICING CARDS -->
+  <section class="section" id="pricing" style="padding-top: 0;">
+    <div class="section-inner">
+      <div class="pricing-grid">
+
+        <div class="pricing-card">
+          <div class="plan-name">Starter</div>
+          <div class="price">$49<span>/mo</span></div>
+          <div class="plan-desc">For businesses just getting started with AI customer service.</div>
+          <ul class="feature-list">
+            <li><span class="check">✓</span> 1 AI chatbot deployment</li>
+            <li><span class="check">✓</span> Up to 500 conversations/month</li>
+            <li><span class="check">✓</span> Train on PDF, DOCX & TXT files</li>
+            <li><span class="check">✓</span> Embed on any website (1 line of code)</li>
+            <li><span class="check">✓</span> Custom company name & greeting</li>
+            <li><span class="check">✓</span> Email support</li>
+          </ul>
+          <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Starter%20Plan" class="plan-cta">Contact Us —
+            $49/mo</a>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="popular-badge">MOST POPULAR</div>
+          <div class="plan-name">Pro</div>
+          <div class="price">$99<span>/mo</span></div>
+          <div class="plan-desc">For businesses with real support volume that need unlimited capacity.</div>
+          <ul class="feature-list">
+            <li><span class="check">✓</span> 1 AI chatbot deployment</li>
+            <li><span class="check">✓</span> Unlimited conversations</li>
+            <li><span class="check">✓</span> Train on PDF, DOCX & TXT files</li>
+            <li><span class="check">✓</span> Embed on any website (1 line of code)</li>
+            <li><span class="check">✓</span> Custom branding, greeting & personality</li>
+            <li><span class="check">✓</span> Priority support</li>
+            <li><span class="check">✓</span> Knowledge base updates anytime</li>
+          </ul>
+          <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Pro%20Plan"
+            class="plan-cta featured-cta">Contact Us — $99/mo</a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="plan-name">Agency</div>
+          <div class="price">$199<span>/mo</span></div>
+          <div class="plan-desc">For agencies deploying AI chatbots across multiple client businesses.</div>
+          <ul class="feature-list">
+            <li><span class="check">✓</span> Up to 5 AI chatbot deployments</li>
+            <li><span class="check">✓</span> Unlimited conversations across all bots</li>
+            <li><span class="check">✓</span> Train on PDF, DOCX & TXT files</li>
+            <li><span class="check">✓</span> Embed on any website (1 line of code)</li>
+            <li><span class="check">✓</span> White-label — your branding, not ours</li>
+            <li><span class="check">✓</span> Dedicated support</li>
+            <li><span class="check">✓</span> Separate configuration per client</li>
+          </ul>
+          <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Agency%20Plan" class="plan-cta">Contact Us —
+            $199/mo</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE COMPARISON -->
+  <section class="section section-gray">
+    <div class="section-inner">
+      <div class="section-label">Compare Plans</div>
+      <h2 class="section-title">Everything side by side</h2>
+      <p class="section-sub">Not sure which plan is right for you? Here's the full breakdown.</p>
+      <div style="overflow-x: auto; border-radius: 16px; border: 1.5px solid #eee;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Starter</th>
+              <th class="col-featured">Pro</th>
+              <th>Agency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feature-name">Monthly price</td>
+              <td class="val">$49/mo</td>
+              <td class="val col-featured">$99/mo</td>
+              <td class="val">$199/mo</td>
+            </tr>
+            <tr>
+              <td class="feature-name">AI chatbot deployments</td>
+              <td class="val">1</td>
+              <td class="val col-featured">1</td>
+              <td class="val">Up to 5</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Conversations per month</td>
+              <td class="val">Up to 500</td>
+              <td class="val col-featured">Unlimited</td>
+              <td class="val">Unlimited</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Train on your documents</td>
+              <td><span class="yes">✓</span></td>
+              <td class="col-featured"><span class="yes">✓</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Supported file types</td>
+              <td class="val">PDF, DOCX, TXT</td>
+              <td class="val col-featured">PDF, DOCX, TXT</td>
+              <td class="val">PDF, DOCX, TXT</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Embed on any website</td>
+              <td><span class="yes">✓</span></td>
+              <td class="col-featured"><span class="yes">✓</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Custom company name</td>
+              <td><span class="yes">✓</span></td>
+              <td class="col-featured"><span class="yes">✓</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Custom greeting message</td>
+              <td><span class="yes">✓</span></td>
+              <td class="col-featured"><span class="yes">✓</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Custom AI personality</td>
+              <td><span class="no">—</span></td>
+              <td class="col-featured"><span class="yes">✓</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">White-label (your branding)</td>
+              <td><span class="no">—</span></td>
+              <td class="col-featured"><span class="no">—</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Knowledge base updates</td>
+              <td class="val">Anytime</td>
+              <td class="val col-featured">Anytime</td>
+              <td class="val">Anytime</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Support</td>
+              <td class="val">Email</td>
+              <td class="val col-featured">Priority email</td>
+              <td class="val">Dedicated</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Powered by GPT-4o</td>
+              <td><span class="yes">✓</span></td>
+              <td class="col-featured"><span class="yes">✓</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Cancel anytime</td>
+              <td><span class="yes">✓</span></td>
+              <td class="col-featured"><span class="yes">✓</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common questions</h2>
+      <p class="section-sub">Still have questions? Email us at jonahkutikov@gmail.com.</p>
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-q">How do I get started?</div>
+          <div class="faq-a">Email us at jonahkutikov@gmail.com and tell us which plan you're interested in. We'll get your chatbot configured and deployed — no technical knowledge needed on your end.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What documents can I use to train the AI?</div>
+          <div class="faq-a">You can upload PDF files, Word documents (.docx), or plain text files (.txt). Great
+            candidates include your FAQ page, product catalog, policies, pricing guide, or any support documentation you
+            already have.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How does the chatbot get embedded on my website?</div>
+          <div class="faq-a">We give you a single line of code to paste into your website. It works on Shopify, Webflow,
+            WordPress, Wix, Squarespace, or any custom site. The chat widget appears in the bottom-right corner of your
+            site automatically.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I update the knowledge base after setup?</div>
+          <div class="faq-a">Yes — you can upload a new document at any time through your admin panel. Updates go live
+            instantly. There's no limit on how often you can do this.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What counts as a "conversation"?</div>
+          <div class="faq-a">A conversation is a single session where a visitor opens the chat widget and sends at least
+            one message. Multiple back-and-forth messages within the same session count as one conversation.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Is there a contract or commitment?</div>
+          <div class="faq-a">No long-term contracts. All plans are month-to-month and you can cancel anytime by emailing
+            us. There are no cancellation fees.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What is white-label on the Agency plan?</div>
+          <div class="faq-a">White-label means the chatbot shows your company's name and branding — not "DocumentorAI."
+            This is ideal for agencies that want to resell the product under their own brand to their clients.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Ready to get started?</h2>
+    <p>Send us an email and we'll get your AI assistant up and running.</p>
+    <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Inquiry" class="cta-email-btn">✉ Get in Touch</a>
+    <p class="cta-note">We reply within a few hours. No sales calls required.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="logo"><span class="logo-dot"></span> DocumentorAI</a>
+      <p>AI customer service for every business.</p>
+    </div>
+  </footer>
 
 </body>
+
 </html>
