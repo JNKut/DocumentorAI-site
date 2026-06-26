@@ -139,12 +139,21 @@
     .foot-rule a:hover { color: var(--pen); }
 
     @media (max-width: 760px) {
+      html { overflow-x: hidden; }
       :root { --gutter: 0px; }
+      .section { padding: 48px 0 60px; }
       .doc { grid-template-columns: 1fr; }
-      .doc > .gutter { text-align: left; padding-right: 0; padding-top: 0; margin-bottom: 14px; }
+      .doc > .gutter { text-align: left; padding-right: 0; padding-top: 0; margin-bottom: 12px; }
       .doc > .main { border-left: none; padding-left: 0; }
       .nav-links a:not(.btn) { display: none; }
+      .price-grid { grid-template-columns: 1fr; }
+      .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+      .ctable { min-width: 460px; }
       .ctable th, .ctable td { padding: 11px 12px; }
+      .faq-item { grid-template-columns: 32px minmax(0, 1fr); }
+      .foot-top { flex-direction: column; gap: 20px; }
+      .foot-links { flex-direction: row; flex-wrap: wrap; gap: 10px 20px; }
+      .foot-rule { flex-direction: column; gap: 4px; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }

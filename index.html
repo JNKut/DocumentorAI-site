@@ -149,13 +149,23 @@
     .foot-rule a:hover { color: var(--pen); }
 
     @media (max-width: 760px) {
+      html { overflow-x: hidden; }
       :root { --gutter: 0px; }
+      .section { padding: 56px 0; }
       .doc { grid-template-columns: 1fr; }
-      .doc > .gutter { text-align: left; padding-right: 0; padding-top: 0; margin-bottom: 14px; }
+      .doc > .gutter { text-align: left; padding-right: 0; padding-top: 0; margin-bottom: 12px; }
       .doc > .main { border-left: none; padding-left: 0; }
       .nav-links a:not(.btn) { display: none; }
+      .embed { display: flex; flex-direction: column; gap: 7px; width: 100%; }
+      .embed code { display: block; width: 100%; box-sizing: border-box; overflow-x: auto; white-space: nowrap; }
+      .hero-checks { flex-direction: column; gap: 10px; }
       .step { grid-template-columns: 1fr; gap: 6px; }
       .step .s-body .s-icon { display: none; }
+      .feat-grid { grid-template-columns: 1fr; }
+      .price-grid { grid-template-columns: 1fr; }
+      .foot-top { flex-direction: column; gap: 20px; }
+      .foot-links { flex-direction: row; flex-wrap: wrap; gap: 10px 20px; }
+      .foot-rule { flex-direction: column; gap: 4px; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
