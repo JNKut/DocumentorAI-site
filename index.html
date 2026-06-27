@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DocumentorAI — AI Customer Service for Any Business</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --paper: #FCFCFA;
@@ -24,372 +27,1069 @@
       --gutter: 150px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--body); background: var(--paper); color: var(--ink);
-      -webkit-font-smoothing: antialiased; line-height: 1.55; font-size: 16px;
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    a { color: inherit; text-decoration: none; }
-    ::selection { background: var(--hl); color: var(--ink); }
-    :focus-visible { outline: 2px solid var(--pen); outline-offset: 3px; border-radius: 3px; }
 
-    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--body);
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--hl);
+      color: var(--ink);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--pen);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 44px);
+    }
 
     /* DOCUMENT GRID — content hangs off a continuous margin rule */
-    .doc { display: grid; grid-template-columns: var(--gutter) minmax(0, 1fr); }
-    .doc > .gutter {
-      text-align: right; padding-right: 30px; padding-top: 6px;
-      font-family: var(--mono); font-size: 11.5px; font-weight: 500;
-      letter-spacing: 0.6px; text-transform: uppercase; color: var(--slate);
+    .doc {
+      display: grid;
+      grid-template-columns: var(--gutter) minmax(0, 1fr);
     }
-    .doc > .gutter .num { display: block; font-size: 13px; color: var(--ink); font-weight: 600; }
-    .doc > .main { border-left: 1px solid var(--graphite); padding-left: clamp(26px, 4vw, 60px); }
-    .section > .wrap > .doc > .main { padding-top: clamp(58px, 8vw, 96px); padding-bottom: clamp(58px, 8vw, 96px); }
+
+    .doc>.gutter {
+      text-align: right;
+      padding-right: 30px;
+      padding-top: 6px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    .doc>.gutter .num {
+      display: block;
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .doc>.main {
+      border-left: 1px solid var(--graphite);
+      padding-left: clamp(26px, 4vw, 60px);
+    }
+
+    .section>.wrap>.doc>.main {
+      padding-top: clamp(58px, 8vw, 96px);
+      padding-bottom: clamp(58px, 8vw, 96px);
+    }
 
     /* MARKER HIGHLIGHT */
     .hl {
       background-image: linear-gradient(var(--hl), var(--hl));
-      background-repeat: no-repeat; background-position: 0 82%;
-      background-size: 100% 40%; padding: 0 0.04em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+      background-repeat: no-repeat;
+      background-position: 0 82%;
+      background-size: 100% 40%;
+      padding: 0 0.04em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
     }
-    .hl-swipe { background-size: 0% 40%; animation: swipe 0.85s 0.55s cubic-bezier(.22,.61,.36,1) forwards; }
-    @keyframes swipe { to { background-size: 100% 40%; } }
+
+    .hl-swipe {
+      background-size: 0% 40%;
+      animation: swipe 0.85s 0.55s cubic-bezier(.22, .61, .36, 1) forwards;
+    }
+
+    @keyframes swipe {
+      to {
+        background-size: 100% 40%;
+      }
+    }
 
     /* NAV */
-    nav { position: sticky; top: 0; z-index: 100; background: rgba(252,252,250,0.85); backdrop-filter: saturate(160%) blur(12px); border-bottom: 1px solid var(--graphite); }
-    .nav-inner { height: 72px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { display: inline-flex; align-items: center; gap: 11px; }
-    .logo .mark { width: 30px; height: 30px; flex-shrink: 0; color: var(--ink); }
-    .logo .word { font-family: var(--display); font-weight: 600; font-size: 21px; letter-spacing: -0.4px; }
-    .logo .word .ai { background-image: linear-gradient(var(--hl), var(--hl)); background-repeat: no-repeat; background-position: 0 78%; background-size: 100% 42%; padding: 0 2px; }
-    .nav-links { display: flex; align-items: center; gap: 30px; }
-    .nav-links a:not(.btn) { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.3px; color: var(--slate); text-transform: uppercase; transition: color .15s; }
-    .nav-links a:not(.btn):hover { color: var(--ink); }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(252, 252, 250, 0.85);
+      backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 1px solid var(--graphite);
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .logo .mark {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      color: var(--ink);
+    }
+
+    .logo .word {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 21px;
+      letter-spacing: -0.4px;
+    }
+
+    .logo .word .ai {
+      background-image: linear-gradient(var(--hl), var(--hl));
+      background-repeat: no-repeat;
+      background-position: 0 78%;
+      background-size: 100% 42%;
+      padding: 0 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-links a:not(.btn) {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      letter-spacing: 0.3px;
+      color: var(--slate);
+      text-transform: uppercase;
+      transition: color .15s;
+    }
+
+    .nav-links a:not(.btn):hover {
+      color: var(--ink);
+    }
 
     /* BUTTONS */
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; font-family: var(--body); font-weight: 600; font-size: 15px; border-radius: 2px; cursor: pointer; transition: transform .14s ease, background .15s, box-shadow .15s, color .15s; }
-    .btn-sm { padding: 9px 18px; font-size: 13.5px; }
-    .btn-lg { padding: 15px 26px; font-size: 15.5px; }
-    .btn-primary { background: var(--pen); color: var(--paper); box-shadow: 3px 3px 0 var(--ink); }
-    .btn-primary:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
-    .btn-primary:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
-    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
-    .btn-ghost:hover { background: var(--ink); color: var(--paper); }
-    .btn-ink { background: var(--ink); color: var(--paper); }
-    .btn-ink:hover { transform: translateY(-1px); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: transform .14s ease, background .15s, box-shadow .15s, color .15s;
+    }
+
+    .btn-sm {
+      padding: 9px 18px;
+      font-size: 13.5px;
+    }
+
+    .btn-lg {
+      padding: 15px 26px;
+      font-size: 15.5px;
+    }
+
+    .btn-primary {
+      background: var(--pen);
+      color: var(--paper);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    .btn-primary:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .btn-primary:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+    }
+
+    .btn-ghost:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn-ink {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn-ink:hover {
+      transform: translateY(-1px);
+    }
 
     /* HERO */
-    .hero .main { padding-top: clamp(64px, 9vw, 108px); padding-bottom: clamp(56px, 8vw, 92px); }
-    .hero .tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--pen); margin-bottom: 26px; }
-    .hero .tag::before { content: ""; width: 22px; height: 1px; background: var(--pen); display: inline-block; }
-    .hero h1 { font-family: var(--display); font-weight: 600; font-size: clamp(42px, 7vw, 86px); line-height: 1.0; letter-spacing: -1.5px; max-width: 13ch; margin-bottom: 26px; font-optical-sizing: auto; }
-    .hero h1 em { font-style: italic; font-weight: 500; }
-    .hero .lede { font-size: clamp(17px, 2.3vw, 21px); color: var(--slate); max-width: 56ch; line-height: 1.6; margin-bottom: 30px; }
-    .embed { display: inline-flex; flex-direction: column; gap: 7px; margin-bottom: 34px; }
-    .embed .embed-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--slate); }
-    .embed code { font-family: var(--mono); font-size: clamp(12px, 1.6vw, 14px); color: var(--ink); background: var(--hl-soft); border: 1px solid var(--graphite); padding: 11px 16px; border-radius: 3px; display: inline-block; }
-    .embed code .t { color: var(--pen); }
-    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-    .hero-checks { margin-top: 26px; display: flex; gap: 22px; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; color: var(--slate); }
-    .hero-checks span { display: inline-flex; align-items: center; gap: 7px; }
-    .hero-checks svg { width: 14px; height: 14px; color: var(--pen); }
+    .hero .main {
+      padding-top: clamp(64px, 9vw, 108px);
+      padding-bottom: clamp(56px, 8vw, 92px);
+    }
+
+    .hero .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--pen);
+      margin-bottom: 26px;
+    }
+
+    .hero .tag::before {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background: var(--pen);
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: 1.0;
+      letter-spacing: -1.5px;
+      max-width: 13ch;
+      margin-bottom: 26px;
+      font-optical-sizing: auto;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .hero .lede {
+      font-size: clamp(17px, 2.3vw, 21px);
+      color: var(--slate);
+      max-width: 56ch;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .embed {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 34px;
+    }
+
+    .embed .embed-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--slate);
+    }
+
+    .embed code {
+      font-family: var(--mono);
+      font-size: clamp(12px, 1.6vw, 14px);
+      color: var(--ink);
+      background: var(--hl-soft);
+      border: 1px solid var(--graphite);
+      padding: 11px 16px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .embed code .t {
+      color: var(--pen);
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-checks {
+      margin-top: 26px;
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--slate);
+    }
+
+    .hero-checks span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .hero-checks svg {
+      width: 14px;
+      height: 14px;
+      color: var(--pen);
+    }
 
     /* SECTION HEADS */
-    .section-alt { background: var(--graphite-soft); }
-    .lead h2 { font-family: var(--display); font-weight: 600; font-size: clamp(28px, 4.4vw, 46px); letter-spacing: -1px; line-height: 1.05; margin-bottom: 14px; max-width: 18ch; }
-    .lead p { font-size: 18px; color: var(--slate); max-width: 52ch; line-height: 1.6; }
-    .lead { margin-bottom: 54px; }
+    .section-alt {
+      background: var(--graphite-soft);
+    }
+
+    .lead h2 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(28px, 4.4vw, 46px);
+      letter-spacing: -1px;
+      line-height: 1.05;
+      margin-bottom: 14px;
+      max-width: 18ch;
+    }
+
+    .lead p {
+      font-size: 18px;
+      color: var(--slate);
+      max-width: 52ch;
+      line-height: 1.6;
+    }
+
+    .lead {
+      margin-bottom: 54px;
+    }
 
     /* STEPS — a real sequence, numbered as clauses on the rule */
-    .step { display: grid; grid-template-columns: 64px minmax(0,1fr); gap: 0; padding: 30px 0; border-top: 1px solid var(--graphite); }
-    .step:first-child { border-top: none; padding-top: 6px; }
-    .step .s-num { font-family: var(--display); font-weight: 500; font-size: 30px; color: var(--ink); line-height: 1; }
-    .step .s-body h3 { font-family: var(--display); font-weight: 600; font-size: 23px; letter-spacing: -0.3px; margin-bottom: 8px; }
-    .step .s-body p { font-size: 16px; color: var(--slate); line-height: 1.6; max-width: 56ch; }
-    .step .s-body .s-icon { float: right; width: 30px; height: 30px; color: var(--graphite); }
+    .step {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: 0;
+      padding: 30px 0;
+      border-top: 1px solid var(--graphite);
+    }
+
+    .step:first-child {
+      border-top: none;
+      padding-top: 6px;
+    }
+
+    .step .s-num {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 30px;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .step .s-body h3 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 23px;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+    }
+
+    .step .s-body p {
+      font-size: 16px;
+      color: var(--slate);
+      line-height: 1.6;
+      max-width: 56ch;
+    }
+
+    .step .s-body .s-icon {
+      float: right;
+      width: 30px;
+      height: 30px;
+      color: var(--graphite);
+    }
 
     /* FEATURES */
-    .feat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: 0; border-top: 1px solid var(--graphite); border-left: 1px solid var(--graphite); }
-    .feat { padding: 26px 24px; border-right: 1px solid var(--graphite); border-bottom: 1px solid var(--graphite); transition: background .18s; }
-    .feat:hover { background: var(--hl-soft); }
-    .feat .f-icon { width: 26px; height: 26px; color: var(--pen); margin-bottom: 16px; }
-    .feat h3 { font-family: var(--display); font-weight: 600; font-size: 17.5px; letter-spacing: -0.2px; margin-bottom: 7px; }
-    .feat p { font-size: 13.5px; color: var(--slate); line-height: 1.55; }
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+      gap: 0;
+      border-top: 1px solid var(--graphite);
+      border-left: 1px solid var(--graphite);
+    }
+
+    .feat {
+      padding: 26px 24px;
+      border-right: 1px solid var(--graphite);
+      border-bottom: 1px solid var(--graphite);
+      transition: background .18s;
+    }
+
+    .feat:hover {
+      background: var(--hl-soft);
+    }
+
+    .feat .f-icon {
+      width: 26px;
+      height: 26px;
+      color: var(--pen);
+      margin-bottom: 16px;
+    }
+
+    .feat h3 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 17.5px;
+      letter-spacing: -0.2px;
+      margin-bottom: 7px;
+    }
+
+    .feat p {
+      font-size: 13.5px;
+      color: var(--slate);
+      line-height: 1.55;
+    }
 
     /* PRICING */
-    .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; max-width: 760px; }
-    .price-card { background: var(--paper); border: 1px solid var(--ink); border-radius: 3px; padding: 32px 30px; position: relative; }
-    .price-card.featured { background: var(--ink); color: var(--paper); }
-    .pop { position: absolute; top: -1px; right: -1px; background: var(--hl); color: var(--ink); font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; padding: 6px 12px; }
-    .plan-name { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--slate); margin-bottom: 16px; }
-    .price-card.featured .plan-name { color: var(--hl); }
-    .price { font-family: var(--display); font-weight: 600; font-size: 52px; letter-spacing: -1.5px; line-height: 1; }
-    .price span { font-family: var(--body); font-size: 16px; font-weight: 500; color: var(--slate); }
-    .price-card.featured .price span { color: #B7B5C9; }
-    .plan-desc { font-size: 14.5px; color: var(--slate); margin: 12px 0 26px; line-height: 1.5; }
-    .price-card.featured .plan-desc { color: #C7C5D6; }
-    .flist { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
-    .flist li { display: flex; gap: 11px; align-items: flex-start; font-size: 14.5px; color: var(--ink); }
-    .price-card.featured .flist li { color: #E9E8EF; }
-    .flist .ck { flex-shrink: 0; margin-top: 2px; width: 15px; height: 15px; color: var(--pen); }
-    .price-card.featured .flist .ck { color: var(--hl); }
-    .plan-btn { width: 100%; }
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      max-width: 760px;
+    }
+
+    .price-card {
+      background: var(--paper);
+      border: 1px solid var(--ink);
+      border-radius: 3px;
+      padding: 32px 30px;
+      position: relative;
+    }
+
+    .price-card.featured {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .pop {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      background: var(--hl);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+    }
+
+    .plan-name {
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--slate);
+      margin-bottom: 16px;
+    }
+
+    .price-card.featured .plan-name {
+      color: var(--hl);
+    }
+
+    .price {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 52px;
+      letter-spacing: -1.5px;
+      line-height: 1;
+    }
+
+    .price span {
+      font-family: var(--body);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--slate);
+    }
+
+    .price-card.featured .price span {
+      color: #B7B5C9;
+    }
+
+    .plan-desc {
+      font-size: 14.5px;
+      color: var(--slate);
+      margin: 12px 0 26px;
+      line-height: 1.5;
+    }
+
+    .price-card.featured .plan-desc {
+      color: #C7C5D6;
+    }
+
+    .flist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .flist li {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      font-size: 14.5px;
+      color: var(--ink);
+    }
+
+    .price-card.featured .flist li {
+      color: #E9E8EF;
+    }
+
+    .flist .ck {
+      flex-shrink: 0;
+      margin-top: 2px;
+      width: 15px;
+      height: 15px;
+      color: var(--pen);
+    }
+
+    .price-card.featured .flist .ck {
+      color: var(--hl);
+    }
+
+    .plan-btn {
+      width: 100%;
+    }
 
     /* FOOTER */
-    footer { background: var(--graphite-soft); color: var(--ink); border-top: 1px solid var(--graphite); }
-    footer .doc > .main { border-left-color: var(--graphite); padding-top: 52px; padding-bottom: 40px; }
-    footer .doc > .gutter { color: var(--slate); }
-    .foot-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
-    .foot-tag { font-size: 14px; color: var(--slate); max-width: 30ch; margin-top: 16px; line-height: 1.6; }
-    .foot-links { display: flex; flex-direction: column; gap: 10px; font-family: var(--mono); font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.4px; }
-    .foot-links a { color: var(--slate); }
-    .foot-links a:hover { color: var(--pen); }
-    .foot-rule { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--graphite); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-family: var(--mono); font-size: 11.5px; color: var(--slate); }
-    .foot-rule a:hover { color: var(--pen); }
+    footer {
+      background: var(--graphite-soft);
+      color: var(--ink);
+      border-top: 1px solid var(--graphite);
+    }
+
+    footer .doc>.main {
+      border-left-color: var(--graphite);
+      padding-top: 52px;
+      padding-bottom: 40px;
+    }
+
+    footer .doc>.gutter {
+      color: var(--slate);
+    }
+
+    .foot-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .foot-tag {
+      font-size: 14px;
+      color: var(--slate);
+      max-width: 30ch;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    .foot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .foot-links a {
+      color: var(--slate);
+    }
+
+    .foot-links a:hover {
+      color: var(--pen);
+    }
+
+    .foot-rule {
+      margin-top: 40px;
+      padding-top: 22px;
+      border-top: 1px solid var(--graphite);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--slate);
+    }
+
+    .foot-rule a:hover {
+      color: var(--pen);
+    }
 
     @media (max-width: 760px) {
-      html { overflow-x: hidden; }
-      :root { --gutter: 0px; }
-      .section { padding: 56px 0; }
-      .doc { grid-template-columns: 1fr; }
-      .doc > .gutter { text-align: left; padding-right: 0; padding-top: 0; margin-bottom: 12px; }
-      .doc > .main { border-left: none; padding-left: 0; }
-      .nav-links a:not(.btn) { display: none; }
-      .embed { display: flex; flex-direction: column; gap: 7px; width: 100%; }
-      .embed code { display: block; width: 100%; box-sizing: border-box; overflow-x: auto; white-space: nowrap; }
-      .hero-checks { flex-direction: column; gap: 10px; }
-      .step { grid-template-columns: 1fr; gap: 6px; }
-      .step .s-body .s-icon { display: none; }
-      .feat-grid { grid-template-columns: 1fr; }
-      .price-grid { grid-template-columns: 1fr; }
-      .foot-top { flex-direction: column; gap: 20px; }
-      .foot-links { flex-direction: row; flex-wrap: wrap; gap: 10px 20px; }
-      .foot-rule { flex-direction: column; gap: 4px; }
+      html {
+        overflow-x: hidden;
+      }
+
+      :root {
+        --gutter: 0px;
+      }
+
+      .section {
+        padding: 56px 0;
+      }
+
+      .doc {
+        grid-template-columns: 1fr;
+      }
+
+      .doc>.gutter {
+        text-align: left;
+        padding-right: 0;
+        padding-top: 0;
+        margin-bottom: 12px;
+      }
+
+      .doc>.main {
+        border-left: none;
+        padding-left: 0;
+      }
+
+      .nav-links a:not(.btn) {
+        display: none;
+      }
+
+      .embed {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        width: 100%;
+      }
+
+      .embed code {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .hero-checks {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .step .s-body .s-icon {
+        display: none;
+      }
+
+      .feat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .foot-top {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .foot-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+      }
+
+      .foot-rule {
+        flex-direction: column;
+        gap: 4px;
+      }
     }
+
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .hl-swipe { animation: none; background-size: 100% 40%; }
-      .btn, .feat { transition: none; }
+      html {
+        scroll-behavior: auto;
+      }
+
+      .hl-swipe {
+        animation: none;
+        background-size: 100% 40%;
+      }
+
+      .btn,
+      .feat {
+        transition: none;
+      }
     }
   </style>
 </head>
+<script src="https://documentorai-production.up.railway.app/widget.js"></script>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="wrap nav-inner">
-    <a href="index.html" class="logo" aria-label="DocumentorAI home">
-      <svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M17 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h8"/>
-        <path d="M17 4l6 6"/><path d="M17 4v6h6"/>
-        <line x1="10" y1="15" x2="17" y2="15"/><line x1="10" y1="19" x2="14" y2="19"/>
-        <path d="M18 18h8a1.5 1.5 0 0 1 1.5 1.5V24a1.5 1.5 0 0 1-1.5 1.5h-4l-3 2.5v-2.5h-1A1.5 1.5 0 0 1 16.5 24v-4.5A1.5 1.5 0 0 1 18 18Z"/>
-      </svg>
-      <span class="word">Documentor<span class="ai">AI</span></span>
-    </a>
-    <div class="nav-links">
-      <a href="#how-it-works">How it works</a>
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <a href="pricing.html" class="btn btn-ink btn-sm">Get Started</a>
-    </div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="section hero">
-  <div class="wrap">
-    <div class="doc">
-      <div class="gutter">trained<br>on your<br>docs</div>
-      <div class="main">
-        <div class="tag">AI customer service — live in minutes</div>
-        <h1>Your business deserves an AI that <em><span class="hl hl-swipe">actually knows it.</span></em></h1>
-        <p class="lede">DocumentorAI lets you deploy a custom AI chat assistant trained on your own documents — and embed it on any website with a single line of code.</p>
-        <div class="embed">
-          <span class="embed-label">one line, any site</span>
-          <code>&lt;<span class="t">script</span> src="documentorai.org/widget.js"&gt;&lt;/<span class="t">script</span>&gt;</code>
-        </div>
-        <div class="hero-ctas">
-          <a href="pricing.html" class="btn btn-primary btn-lg">Get Started</a>
-          <a href="#how-it-works" class="btn btn-ghost btn-lg">See How It Works ↓</a>
-        </div>
-        <div class="hero-checks">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> No code required</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Set up the same day</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Cancel anytime</span>
-        </div>
+  <!-- NAV -->
+  <nav>
+    <div class="wrap nav-inner">
+      <a href="index.html" class="logo" aria-label="DocumentorAI home">
+        <svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h8" />
+          <path d="M17 4l6 6" />
+          <path d="M17 4v6h6" />
+          <line x1="10" y1="15" x2="17" y2="15" />
+          <line x1="10" y1="19" x2="14" y2="19" />
+          <path
+            d="M18 18h8a1.5 1.5 0 0 1 1.5 1.5V24a1.5 1.5 0 0 1-1.5 1.5h-4l-3 2.5v-2.5h-1A1.5 1.5 0 0 1 16.5 24v-4.5A1.5 1.5 0 0 1 18 18Z" />
+        </svg>
+        <span class="word">Documentor<span class="ai">AI</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="pricing.html" class="btn btn-ink btn-sm">Get Started</a>
       </div>
     </div>
-  </div>
-</section>
+  </nav>
 
-<!-- HOW IT WORKS -->
-<section class="section section-alt" id="how-it-works">
-  <div class="wrap">
-    <div class="doc">
-      <div class="gutter">§ 01–03<br>the process</div>
-      <div class="main">
-        <div class="lead">
-          <h2>Three steps from setup to live</h2>
-          <p>No developers needed. No complicated setup.</p>
-        </div>
-        <div class="step">
-          <div class="s-num">01</div>
-          <div class="s-body">
-            <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 18v-6"/><path d="M9.5 14.5 12 12l2.5 2.5"/></svg>
-            <h3>Train it</h3>
-            <p>Upload a document — your FAQs, product info, or policies. The AI learns your business instantly.</p>
+  <!-- HERO -->
+  <section class="section hero">
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">trained<br>on your<br>docs</div>
+        <div class="main">
+          <div class="tag">AI customer service — live in minutes</div>
+          <h1>Your business deserves an AI that <em><span class="hl hl-swipe">actually knows it.</span></em></h1>
+          <p class="lede">DocumentorAI lets you deploy a custom AI chat assistant trained on your own documents — and
+            embed it on any website with a single line of code.</p>
+          <div class="embed">
+            <span class="embed-label">one line, any site</span>
+            <code>&lt;<span class="t">script</span> src="documentorai.org/widget.js"&gt;&lt;/<span class="t">script</span>&gt;</code>
           </div>
-        </div>
-        <div class="step">
-          <div class="s-num">02</div>
-          <div class="s-body">
-            <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7L12 19"/></svg>
-            <h3>Embed it</h3>
-            <p>Copy one line of code and paste it into any website. Works on Shopify, Webflow, WordPress, and more.</p>
+          <div class="hero-ctas">
+            <a href="pricing.html" class="btn btn-primary btn-lg">Get Started</a>
+            <a href="#how-it-works" class="btn btn-ghost btn-lg">See How It Works ↓</a>
           </div>
-        </div>
-        <div class="step">
-          <div class="s-num">03</div>
-          <div class="s-body">
-            <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="2.5"/><path d="M12 8V4.5"/><circle cx="12" cy="3.5" r="1.2"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/><path d="M9.5 16.5h5"/></svg>
-            <h3>Let it work</h3>
-            <p>Your AI answers customer questions 24/7 — trained specifically on your business, not generic fluff.</p>
+          <div class="hero-checks">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg> No code required</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg> Set up the same day</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg> Cancel anytime</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FEATURES -->
-<section class="section" id="features">
-  <div class="wrap">
-    <div class="doc">
-      <div class="gutter">the<br>margins</div>
-      <div class="main">
-        <div class="lead">
-          <h2>Everything you need, nothing you don't</h2>
-          <p>Built for small businesses that want real results without the complexity.</p>
-        </div>
-        <div class="feat-grid">
-          <div class="feat">
-            <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <h3>Instant Setup</h3><p>Configure your chatbot in minutes from a simple admin panel. No coding required.</p>
+  <!-- HOW IT WORKS -->
+  <section class="section section-alt" id="how-it-works">
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">§ 01–03<br>the process</div>
+        <div class="main">
+          <div class="lead">
+            <h2>Three steps from setup to live</h2>
+            <p>No developers needed. No complicated setup.</p>
           </div>
-          <div class="feat">
-            <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="16.5" x2="13" y2="16.5"/></svg>
-            <h3>Trained on Your Docs</h3><p>Upload PDFs, Word docs, or text files. The AI answers from your actual content.</p>
-          </div>
-          <div class="feat">
-            <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7L12 19"/></svg>
-            <h3>Embeds Anywhere</h3><p>One script tag. Works on any website platform without developer help.</p>
-          </div>
-          <div class="feat">
-            <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>
-            <h3>Always On</h3><p>24/7 availability means customers get answers even when you're closed.</p>
-          </div>
-          <div class="feat">
-            <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="10" r="1.1" fill="currentColor" stroke="none"/><path d="M8 14.5a5 5 0 0 0 8 0"/></svg>
-            <h3>Your Brand</h3><p>Customize the name, greeting, and personality to match your business.</p>
-          </div>
-          <div class="feat">
-            <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0v3a2 2 0 0 1-2 2h-1v-5h3"/><path d="M4 13v3a2 2 0 0 0 2 2h1v-5H4"/><path d="M9 20h3a2 2 0 0 0 2-2"/></svg>
-            <h3>Handles the Volume</h3><p>Let the AI handle common questions so your team focuses on what matters.</p>
-          </div>
-          <div class="feat">
-            <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 2v3M14 2v3M10 19v3M14 19v3M2 10h3M2 14h3M19 10h3M19 14h3"/></svg>
-            <h3>Powered by GPT-4</h3><p>Enterprise-grade AI — the same technology used by top companies worldwide.</p>
-          </div>
-          <div class="feat">
-            <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
-            <h3>No Maintenance</h3><p>Update your knowledge base anytime. Changes go live instantly.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="section section-alt" id="pricing">
-  <div class="wrap">
-    <div class="doc">
-      <div class="gutter">rates<br>per month</div>
-      <div class="main">
-        <div class="lead">
-          <h2>Simple, honest pricing</h2>
-          <p>A fraction of what a customer service hire costs. Cancel anytime.</p>
-        </div>
-        <div class="price-grid">
-          <div class="price-card">
-            <div class="plan-name">Starter</div>
-            <div class="price">$49<span>/mo</span></div>
-            <div class="plan-desc">Perfect for getting started.</div>
-            <ul class="flist">
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 1 AI chatbot</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Up to 500 conversations/month</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> PDF, DOCX &amp; TXT training</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Embed on any website</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Email support</li>
-            </ul>
-            <a href="pricing.html" class="btn btn-ghost plan-btn">Get Started</a>
-          </div>
-          <div class="price-card featured">
-            <div class="pop">Most Popular</div>
-            <div class="plan-name">Pro</div>
-            <div class="price">$99<span>/mo</span></div>
-            <div class="plan-desc">For businesses with real volume.</div>
-            <ul class="flist">
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 1 AI chatbot</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Unlimited conversations</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Custom branding &amp; greeting</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Priority support</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> PDF, DOCX &amp; TXT training</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Embed on any website</li>
-            </ul>
-            <a href="pricing.html" class="btn btn-primary plan-btn">Get Started</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="wrap">
-    <div class="doc">
-      <div class="gutter">colophon</div>
-      <div class="main">
-        <div class="foot-top">
-          <div>
-            <a href="index.html" class="logo" aria-label="DocumentorAI home">
-              <svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M17 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h8"/>
-                <path d="M17 4l6 6"/><path d="M17 4v6h6"/>
-                <line x1="10" y1="15" x2="17" y2="15"/><line x1="10" y1="19" x2="14" y2="19"/>
-                <path d="M18 18h8a1.5 1.5 0 0 1 1.5 1.5V24a1.5 1.5 0 0 1-1.5 1.5h-4l-3 2.5v-2.5h-1A1.5 1.5 0 0 1 16.5 24v-4.5A1.5 1.5 0 0 1 18 18Z"/>
+          <div class="step">
+            <div class="s-num">01</div>
+            <div class="s-body">
+              <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+                <path d="M14 3v5h5" />
+                <path d="M12 18v-6" />
+                <path d="M9.5 14.5 12 12l2.5 2.5" />
               </svg>
-              <span class="word">Documentor<span class="ai">AI</span></span>
-            </a>
-            <p class="foot-tag">AI customer service for every business.</p>
+              <h3>Train it</h3>
+              <p>Upload a document — your FAQs, product info, or policies. The AI learns your business instantly.</p>
+            </div>
           </div>
-          <nav class="foot-links" aria-label="Footer">
-            <a href="#how-it-works">How it works</a>
-            <a href="#pricing">Pricing</a>
-            <a href="pricing.html">Get Started</a>
-          </nav>
-        </div>
-        <div class="foot-rule">
-          <span>© 2026 DocumentorAI</span>
-          <a href="mailto:jonahkutikov@gmail.com">jonahkutikov@gmail.com</a>
+          <div class="step">
+            <div class="s-num">02</div>
+            <div class="s-body">
+              <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5" />
+                <path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7L12 19" />
+              </svg>
+              <h3>Embed it</h3>
+              <p>Copy one line of code and paste it into any website. Works on Shopify, Webflow, WordPress, and more.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="s-num">03</div>
+            <div class="s-body">
+              <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="8" width="16" height="11" rx="2.5" />
+                <path d="M12 8V4.5" />
+                <circle cx="12" cy="3.5" r="1.2" />
+                <circle cx="9" cy="13" r="1.1" />
+                <circle cx="15" cy="13" r="1.1" />
+                <path d="M9.5 16.5h5" />
+              </svg>
+              <h3>Let it work</h3>
+              <p>Your AI answers customer questions 24/7 — trained specifically on your business, not generic fluff.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</footer>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">the<br>margins</div>
+        <div class="main">
+          <div class="lead">
+            <h2>Everything you need, nothing you don't</h2>
+            <p>Built for small businesses that want real results without the complexity.</p>
+          </div>
+          <div class="feat-grid">
+            <div class="feat">
+              <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+              <h3>Instant Setup</h3>
+              <p>Configure your chatbot in minutes from a simple admin panel. No coding required.</p>
+            </div>
+            <div class="feat">
+              <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+                <path d="M14 3v5h5" />
+                <line x1="9" y1="13" x2="15" y2="13" />
+                <line x1="9" y1="16.5" x2="13" y2="16.5" />
+              </svg>
+              <h3>Trained on Your Docs</h3>
+              <p>Upload PDFs, Word docs, or text files. The AI answers from your actual content.</p>
+            </div>
+            <div class="feat">
+              <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5" />
+                <path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7L12 19" />
+              </svg>
+              <h3>Embeds Anywhere</h3>
+              <p>One script tag. Works on any website platform without developer help.</p>
+            </div>
+            <div class="feat">
+              <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <polyline points="12 7 12 12 15.5 14" />
+              </svg>
+              <h3>Always On</h3>
+              <p>24/7 availability means customers get answers even when you're closed.</p>
+            </div>
+            <div class="feat">
+              <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="8.5" cy="10" r="1.1" fill="currentColor" stroke="none" />
+                <circle cx="15.5" cy="10" r="1.1" fill="currentColor" stroke="none" />
+                <path d="M8 14.5a5 5 0 0 0 8 0" />
+              </svg>
+              <h3>Your Brand</h3>
+              <p>Customize the name, greeting, and personality to match your business.</p>
+            </div>
+            <div class="feat">
+              <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 13a8 8 0 0 1 16 0v3a2 2 0 0 1-2 2h-1v-5h3" />
+                <path d="M4 13v3a2 2 0 0 0 2 2h1v-5H4" />
+                <path d="M9 20h3a2 2 0 0 0 2-2" />
+              </svg>
+              <h3>Handles the Volume</h3>
+              <p>Let the AI handle common questions so your team focuses on what matters.</p>
+            </div>
+            <div class="feat">
+              <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="7" y="7" width="10" height="10" rx="2" />
+                <path d="M10 2v3M14 2v3M10 19v3M14 19v3M2 10h3M2 14h3M19 10h3M19 14h3" />
+              </svg>
+              <h3>Powered by GPT-4</h3>
+              <p>Enterprise-grade AI — the same technology used by top companies worldwide.</p>
+            </div>
+            <div class="feat">
+              <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+                <polyline points="21 3 21 9 15 9" />
+              </svg>
+              <h3>No Maintenance</h3>
+              <p>Update your knowledge base anytime. Changes go live instantly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section section-alt" id="pricing">
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">rates<br>per month</div>
+        <div class="main">
+          <div class="lead">
+            <h2>Simple, honest pricing</h2>
+            <p>A fraction of what a customer service hire costs. Cancel anytime.</p>
+          </div>
+          <div class="price-grid">
+            <div class="price-card">
+              <div class="plan-name">Starter</div>
+              <div class="price">$49<span>/mo</span></div>
+              <div class="plan-desc">Perfect for getting started.</div>
+              <ul class="flist">
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> 1 AI chatbot</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Up to 500 conversations/month</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> PDF, DOCX &amp; TXT training</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Embed on any website</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Email support</li>
+              </ul>
+              <a href="pricing.html" class="btn btn-ghost plan-btn">Get Started</a>
+            </div>
+            <div class="price-card featured">
+              <div class="pop">Most Popular</div>
+              <div class="plan-name">Pro</div>
+              <div class="price">$99<span>/mo</span></div>
+              <div class="plan-desc">For businesses with real volume.</div>
+              <ul class="flist">
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> 1 AI chatbot</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Unlimited conversations</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Custom branding &amp; greeting</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Priority support</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> PDF, DOCX &amp; TXT training</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Embed on any website</li>
+              </ul>
+              <a href="pricing.html" class="btn btn-primary plan-btn">Get Started</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">colophon</div>
+        <div class="main">
+          <div class="foot-top">
+            <div>
+              <a href="index.html" class="logo" aria-label="DocumentorAI home">
+                <svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M17 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h8" />
+                  <path d="M17 4l6 6" />
+                  <path d="M17 4v6h6" />
+                  <line x1="10" y1="15" x2="17" y2="15" />
+                  <line x1="10" y1="19" x2="14" y2="19" />
+                  <path
+                    d="M18 18h8a1.5 1.5 0 0 1 1.5 1.5V24a1.5 1.5 0 0 1-1.5 1.5h-4l-3 2.5v-2.5h-1A1.5 1.5 0 0 1 16.5 24v-4.5A1.5 1.5 0 0 1 18 18Z" />
+                </svg>
+                <span class="word">Documentor<span class="ai">AI</span></span>
+              </a>
+              <p class="foot-tag">AI customer service for every business.</p>
+            </div>
+            <nav class="foot-links" aria-label="Footer">
+              <a href="#how-it-works">How it works</a>
+              <a href="#pricing">Pricing</a>
+              <a href="pricing.html">Get Started</a>
+            </nav>
+          </div>
+          <div class="foot-rule">
+            <span>© 2026 DocumentorAI</span>
+            <a href="mailto:jonahkutikov@gmail.com">jonahkutikov@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 </body>
+
 </html>

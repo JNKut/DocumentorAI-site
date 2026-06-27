@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricing — DocumentorAI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --paper: #FCFCFA;
@@ -24,346 +27,1074 @@
       --gutter: 150px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--body); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.55; font-size: 16px; }
-    a { color: inherit; text-decoration: none; }
-    ::selection { background: var(--hl); color: var(--ink); }
-    :focus-visible { outline: 2px solid var(--pen); outline-offset: 3px; border-radius: 3px; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
+    html {
+      scroll-behavior: smooth;
+    }
 
-    .doc { display: grid; grid-template-columns: var(--gutter) minmax(0, 1fr); }
-    .doc > .gutter { text-align: right; padding-right: 30px; padding-top: 6px; font-family: var(--mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase; color: var(--slate); }
-    .doc > .main { border-left: 1px solid var(--graphite); padding-left: clamp(26px, 4vw, 60px); }
-    .section > .wrap > .doc > .main { padding-top: clamp(54px, 7vw, 88px); padding-bottom: clamp(54px, 7vw, 88px); }
+    body {
+      font-family: var(--body);
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+      font-size: 16px;
+    }
 
-    .hl { background-image: linear-gradient(var(--hl), var(--hl)); background-repeat: no-repeat; background-position: 0 82%; background-size: 100% 40%; padding: 0 0.04em; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--hl);
+      color: var(--ink);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--pen);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 44px);
+    }
+
+    .doc {
+      display: grid;
+      grid-template-columns: var(--gutter) minmax(0, 1fr);
+    }
+
+    .doc>.gutter {
+      text-align: right;
+      padding-right: 30px;
+      padding-top: 6px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    .doc>.main {
+      border-left: 1px solid var(--graphite);
+      padding-left: clamp(26px, 4vw, 60px);
+    }
+
+    .section>.wrap>.doc>.main {
+      padding-top: clamp(54px, 7vw, 88px);
+      padding-bottom: clamp(54px, 7vw, 88px);
+    }
+
+    .hl {
+      background-image: linear-gradient(var(--hl), var(--hl));
+      background-repeat: no-repeat;
+      background-position: 0 82%;
+      background-size: 100% 40%;
+      padding: 0 0.04em;
+    }
 
     /* NAV */
-    nav { position: sticky; top: 0; z-index: 100; background: rgba(252,252,250,0.85); backdrop-filter: saturate(160%) blur(12px); border-bottom: 1px solid var(--graphite); }
-    .nav-inner { height: 72px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { display: inline-flex; align-items: center; gap: 11px; }
-    .logo .mark { width: 30px; height: 30px; flex-shrink: 0; color: var(--ink); }
-    .logo .word { font-family: var(--display); font-weight: 600; font-size: 21px; letter-spacing: -0.4px; }
-    .logo .word .ai { background-image: linear-gradient(var(--hl), var(--hl)); background-repeat: no-repeat; background-position: 0 78%; background-size: 100% 42%; padding: 0 2px; }
-    .nav-links { display: flex; align-items: center; gap: 30px; }
-    .nav-links a:not(.btn) { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.3px; color: var(--slate); text-transform: uppercase; transition: color .15s; }
-    .nav-links a:not(.btn):hover { color: var(--ink); }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(252, 252, 250, 0.85);
+      backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 1px solid var(--graphite);
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .logo .mark {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      color: var(--ink);
+    }
+
+    .logo .word {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 21px;
+      letter-spacing: -0.4px;
+    }
+
+    .logo .word .ai {
+      background-image: linear-gradient(var(--hl), var(--hl));
+      background-repeat: no-repeat;
+      background-position: 0 78%;
+      background-size: 100% 42%;
+      padding: 0 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-links a:not(.btn) {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      letter-spacing: 0.3px;
+      color: var(--slate);
+      text-transform: uppercase;
+      transition: color .15s;
+    }
+
+    .nav-links a:not(.btn):hover {
+      color: var(--ink);
+    }
 
     /* BUTTONS */
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; font-family: var(--body); font-weight: 600; font-size: 15px; border-radius: 2px; cursor: pointer; transition: transform .14s ease, background .15s, box-shadow .15s, color .15s; }
-    .btn-sm { padding: 9px 18px; font-size: 13.5px; }
-    .btn-lg { padding: 15px 26px; font-size: 15.5px; }
-    .btn-primary { background: var(--pen); color: var(--paper); box-shadow: 3px 3px 0 var(--ink); }
-    .btn-primary:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
-    .btn-primary:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
-    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
-    .btn-ghost:hover { background: var(--ink); color: var(--paper); }
-    .btn-ink { background: var(--ink); color: var(--paper); }
-    .btn-ink:hover { transform: translateY(-1px); }
-    .btn-paper { background: var(--paper); color: var(--ink); }
-    .btn-paper:hover { background: var(--hl); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: transform .14s ease, background .15s, box-shadow .15s, color .15s;
+    }
+
+    .btn-sm {
+      padding: 9px 18px;
+      font-size: 13.5px;
+    }
+
+    .btn-lg {
+      padding: 15px 26px;
+      font-size: 15.5px;
+    }
+
+    .btn-primary {
+      background: var(--pen);
+      color: var(--paper);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    .btn-primary:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .btn-primary:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+    }
+
+    .btn-ghost:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn-ink {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn-ink:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-paper {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .btn-paper:hover {
+      background: var(--hl);
+    }
 
     /* HERO */
-    .hero .main { padding-top: clamp(56px, 8vw, 92px); padding-bottom: clamp(40px, 6vw, 68px); }
-    .hero .tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--pen); margin-bottom: 24px; }
-    .hero .tag::before { content: ""; width: 22px; height: 1px; background: var(--pen); display: inline-block; }
-    .hero h1 { font-family: var(--display); font-weight: 600; font-size: clamp(40px, 6vw, 72px); line-height: 1.0; letter-spacing: -1.4px; margin-bottom: 20px; }
-    .hero h1 em { font-style: italic; font-weight: 500; }
-    .hero .lede { font-size: clamp(17px, 2.2vw, 20px); color: var(--slate); max-width: 56ch; line-height: 1.6; }
+    .hero .main {
+      padding-top: clamp(56px, 8vw, 92px);
+      padding-bottom: clamp(40px, 6vw, 68px);
+    }
 
-    .section-alt { background: var(--graphite-soft); }
-    .lead h2 { font-family: var(--display); font-weight: 600; font-size: clamp(26px, 4vw, 42px); letter-spacing: -1px; line-height: 1.05; margin-bottom: 14px; max-width: 18ch; }
-    .lead p { font-size: 17px; color: var(--slate); max-width: 52ch; line-height: 1.6; }
-    .lead { margin-bottom: 48px; }
+    .hero .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--pen);
+      margin-bottom: 24px;
+    }
+
+    .hero .tag::before {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background: var(--pen);
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1.0;
+      letter-spacing: -1.4px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .hero .lede {
+      font-size: clamp(17px, 2.2vw, 20px);
+      color: var(--slate);
+      max-width: 56ch;
+      line-height: 1.6;
+    }
+
+    .section-alt {
+      background: var(--graphite-soft);
+    }
+
+    .lead h2 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(26px, 4vw, 42px);
+      letter-spacing: -1px;
+      line-height: 1.05;
+      margin-bottom: 14px;
+      max-width: 18ch;
+    }
+
+    .lead p {
+      font-size: 17px;
+      color: var(--slate);
+      max-width: 52ch;
+      line-height: 1.6;
+    }
+
+    .lead {
+      margin-bottom: 48px;
+    }
 
     /* PRICING */
-    .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 22px; max-width: 800px; }
-    .price-card { background: var(--paper); border: 1px solid var(--ink); border-radius: 3px; padding: 34px 32px; position: relative; }
-    .price-card.featured { background: var(--ink); color: var(--paper); }
-    .pop { position: absolute; top: -1px; right: -1px; background: var(--hl); color: var(--ink); font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; padding: 6px 12px; }
-    .plan-name { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--slate); margin-bottom: 16px; }
-    .price-card.featured .plan-name { color: var(--hl); }
-    .price { font-family: var(--display); font-weight: 600; font-size: 52px; letter-spacing: -1.5px; line-height: 1; }
-    .price span { font-family: var(--body); font-size: 16px; font-weight: 500; color: var(--slate); }
-    .price-card.featured .price span { color: #B7B5C9; }
-    .plan-desc { font-size: 14.5px; color: var(--slate); margin: 12px 0 26px; line-height: 1.5; }
-    .price-card.featured .plan-desc { color: #C7C5D6; }
-    .flist { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
-    .flist li { display: flex; gap: 11px; align-items: flex-start; font-size: 14.5px; color: var(--ink); }
-    .price-card.featured .flist li { color: #E9E8EF; }
-    .flist .ck { flex-shrink: 0; margin-top: 2px; width: 15px; height: 15px; color: var(--pen); }
-    .price-card.featured .flist .ck { color: var(--hl); }
-    .plan-btn { width: 100%; }
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 22px;
+      max-width: 800px;
+    }
+
+    .price-card {
+      background: var(--paper);
+      border: 1px solid var(--ink);
+      border-radius: 3px;
+      padding: 34px 32px;
+      position: relative;
+    }
+
+    .price-card.featured {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .pop {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      background: var(--hl);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+    }
+
+    .plan-name {
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--slate);
+      margin-bottom: 16px;
+    }
+
+    .price-card.featured .plan-name {
+      color: var(--hl);
+    }
+
+    .price {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 52px;
+      letter-spacing: -1.5px;
+      line-height: 1;
+    }
+
+    .price span {
+      font-family: var(--body);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--slate);
+    }
+
+    .price-card.featured .price span {
+      color: #B7B5C9;
+    }
+
+    .plan-desc {
+      font-size: 14.5px;
+      color: var(--slate);
+      margin: 12px 0 26px;
+      line-height: 1.5;
+    }
+
+    .price-card.featured .plan-desc {
+      color: #C7C5D6;
+    }
+
+    .flist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .flist li {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      font-size: 14.5px;
+      color: var(--ink);
+    }
+
+    .price-card.featured .flist li {
+      color: #E9E8EF;
+    }
+
+    .flist .ck {
+      flex-shrink: 0;
+      margin-top: 2px;
+      width: 15px;
+      height: 15px;
+      color: var(--pen);
+    }
+
+    .price-card.featured .flist .ck {
+      color: var(--hl);
+    }
+
+    .plan-btn {
+      width: 100%;
+    }
 
     /* COMPARE TABLE */
-    .table-wrap { overflow-x: auto; border: 1px solid var(--ink); border-radius: 3px; background: var(--paper); }
-    .ctable { width: 100%; border-collapse: collapse; font-size: 14.5px; }
-    .ctable th, .ctable td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--graphite); }
-    .ctable tbody tr:last-child td { border-bottom: none; }
-    .ctable thead th { font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--slate); border-bottom: 1px solid var(--ink); }
-    .ctable thead th.col-pro { color: var(--ink); }
-    .ctable tbody tr:hover { background: var(--hl-soft); }
-    .ctable .fname { color: var(--ink); }
-    .ctable .val { font-weight: 600; color: var(--ink); }
-    .ctable .col-pro { background: rgba(255,225,77,0.16); }
-    .ctable .yes { color: var(--pen); display: inline-flex; }
-    .ctable .yes svg { width: 18px; height: 18px; }
-    .ctable .no { color: var(--graphite); }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--ink);
+      border-radius: 3px;
+      background: var(--paper);
+    }
+
+    .ctable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14.5px;
+    }
+
+    .ctable th,
+    .ctable td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--graphite);
+    }
+
+    .ctable tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .ctable thead th {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--slate);
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .ctable thead th.col-pro {
+      color: var(--ink);
+    }
+
+    .ctable tbody tr:hover {
+      background: var(--hl-soft);
+    }
+
+    .ctable .fname {
+      color: var(--ink);
+    }
+
+    .ctable .val {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .ctable .col-pro {
+      background: rgba(255, 225, 77, 0.16);
+    }
+
+    .ctable .yes {
+      color: var(--pen);
+      display: inline-flex;
+    }
+
+    .ctable .yes svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .ctable .no {
+      color: var(--graphite);
+    }
 
     /* FAQ — clauses */
-    .faq-item { padding: 26px 0; border-top: 1px solid var(--graphite); display: grid; grid-template-columns: 56px minmax(0,1fr); gap: 0; }
-    .faq-item:first-child { border-top: none; }
-    .faq-item .q-mark { font-family: var(--mono); font-size: 12px; color: var(--pen); padding-top: 4px; }
-    .faq-q { font-family: var(--display); font-weight: 600; font-size: 19px; letter-spacing: -0.2px; margin-bottom: 9px; }
-    .faq-a { font-size: 15px; color: var(--slate); line-height: 1.65; max-width: 62ch; }
+    .faq-item {
+      padding: 26px 0;
+      border-top: 1px solid var(--graphite);
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr);
+      gap: 0;
+    }
+
+    .faq-item:first-child {
+      border-top: none;
+    }
+
+    .faq-item .q-mark {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--pen);
+      padding-top: 4px;
+    }
+
+    .faq-q {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 19px;
+      letter-spacing: -0.2px;
+      margin-bottom: 9px;
+    }
+
+    .faq-a {
+      font-size: 15px;
+      color: var(--slate);
+      line-height: 1.65;
+      max-width: 62ch;
+    }
 
     /* CTA */
-    .cta { background: var(--graphite-soft); color: var(--ink); border-top: 1px solid var(--graphite); }
-    .cta .doc > .main { border-left-color: var(--graphite); padding-top: clamp(64px,9vw,104px); padding-bottom: clamp(64px,9vw,104px); }
-    .cta .doc > .gutter { color: var(--slate); }
-    .cta h2 { font-family: var(--display); font-weight: 600; font-size: clamp(30px, 4.6vw, 50px); letter-spacing: -1px; line-height: 1.04; margin-bottom: 16px; max-width: 16ch; }
-    .cta p { font-size: 18px; color: var(--slate); max-width: 46ch; line-height: 1.6; margin-bottom: 30px; }
+    .cta {
+      background: var(--graphite-soft);
+      color: var(--ink);
+      border-top: 1px solid var(--graphite);
+    }
+
+    .cta .doc>.main {
+      border-left-color: var(--graphite);
+      padding-top: clamp(64px, 9vw, 104px);
+      padding-bottom: clamp(64px, 9vw, 104px);
+    }
+
+    .cta .doc>.gutter {
+      color: var(--slate);
+    }
+
+    .cta h2 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(30px, 4.6vw, 50px);
+      letter-spacing: -1px;
+      line-height: 1.04;
+      margin-bottom: 16px;
+      max-width: 16ch;
+    }
+
+    .cta p {
+      font-size: 18px;
+      color: var(--slate);
+      max-width: 46ch;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
 
     /* FOOTER */
-    footer { background: var(--graphite-soft); color: var(--ink); border-top: 1px solid var(--graphite); }
-    footer .doc > .main { border-left-color: var(--graphite); padding-top: 52px; padding-bottom: 40px; }
-    footer .doc > .gutter { color: var(--slate); }
-    .foot-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
-    .foot-tag { font-size: 14px; color: var(--slate); max-width: 30ch; margin-top: 16px; line-height: 1.6; }
-    .foot-links { display: flex; flex-direction: column; gap: 10px; font-family: var(--mono); font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.4px; }
-    .foot-links a { color: var(--slate); }
-    .foot-links a:hover { color: var(--pen); }
-    .foot-rule { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--graphite); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-family: var(--mono); font-size: 11.5px; color: var(--slate); }
-    .foot-rule a:hover { color: var(--pen); }
+    footer {
+      background: var(--graphite-soft);
+      color: var(--ink);
+      border-top: 1px solid var(--graphite);
+    }
+
+    footer .doc>.main {
+      border-left-color: var(--graphite);
+      padding-top: 52px;
+      padding-bottom: 40px;
+    }
+
+    footer .doc>.gutter {
+      color: var(--slate);
+    }
+
+    .foot-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .foot-tag {
+      font-size: 14px;
+      color: var(--slate);
+      max-width: 30ch;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    .foot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .foot-links a {
+      color: var(--slate);
+    }
+
+    .foot-links a:hover {
+      color: var(--pen);
+    }
+
+    .foot-rule {
+      margin-top: 40px;
+      padding-top: 22px;
+      border-top: 1px solid var(--graphite);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--slate);
+    }
+
+    .foot-rule a:hover {
+      color: var(--pen);
+    }
 
     @media (max-width: 760px) {
-      html { overflow-x: hidden; }
-      :root { --gutter: 0px; }
-      .section { padding: 48px 0 60px; }
-      .doc { grid-template-columns: 1fr; }
-      .doc > .gutter { text-align: left; padding-right: 0; padding-top: 0; margin-bottom: 12px; }
-      .doc > .main { border-left: none; padding-left: 0; }
-      .nav-links a:not(.btn) { display: none; }
-      .price-grid { grid-template-columns: 1fr; }
-      .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
-      .ctable { min-width: 460px; }
-      .ctable th, .ctable td { padding: 11px 12px; }
-      .faq-item { grid-template-columns: 32px minmax(0, 1fr); }
-      .foot-top { flex-direction: column; gap: 20px; }
-      .foot-links { flex-direction: row; flex-wrap: wrap; gap: 10px 20px; }
-      .foot-rule { flex-direction: column; gap: 4px; }
+      html {
+        overflow-x: hidden;
+      }
+
+      :root {
+        --gutter: 0px;
+      }
+
+      .section {
+        padding: 48px 0 60px;
+      }
+
+      .doc {
+        grid-template-columns: 1fr;
+      }
+
+      .doc>.gutter {
+        text-align: left;
+        padding-right: 0;
+        padding-top: 0;
+        margin-bottom: 12px;
+      }
+
+      .doc>.main {
+        border-left: none;
+        padding-left: 0;
+      }
+
+      .nav-links a:not(.btn) {
+        display: none;
+      }
+
+      .price-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+      }
+
+      .ctable {
+        min-width: 460px;
+      }
+
+      .ctable th,
+      .ctable td {
+        padding: 11px 12px;
+      }
+
+      .faq-item {
+        grid-template-columns: 32px minmax(0, 1fr);
+      }
+
+      .foot-top {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .foot-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+      }
+
+      .foot-rule {
+        flex-direction: column;
+        gap: 4px;
+      }
     }
+
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .btn { transition: none; }
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn {
+        transition: none;
+      }
     }
   </style>
 </head>
+<script src="https://documentorai-production.up.railway.app/widget.js"></script>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="wrap nav-inner">
-    <a href="index.html" class="logo" aria-label="DocumentorAI home">
-      <svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M17 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h8"/>
-        <path d="M17 4l6 6"/><path d="M17 4v6h6"/>
-        <line x1="10" y1="15" x2="17" y2="15"/><line x1="10" y1="19" x2="14" y2="19"/>
-        <path d="M18 18h8a1.5 1.5 0 0 1 1.5 1.5V24a1.5 1.5 0 0 1-1.5 1.5h-4l-3 2.5v-2.5h-1A1.5 1.5 0 0 1 16.5 24v-4.5A1.5 1.5 0 0 1 18 18Z"/>
-      </svg>
-      <span class="word">Documentor<span class="ai">AI</span></span>
-    </a>
-    <div class="nav-links">
-      <a href="index.html#how-it-works">How it works</a>
-      <a href="index.html#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <a href="index.html" class="btn btn-ink btn-sm">Home</a>
-    </div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="section hero">
-  <div class="wrap">
-    <div class="doc">
-      <div class="gutter">price<br>list</div>
-      <div class="main">
-        <div class="tag">Plans for every business size</div>
-        <h1>Simple pricing.<br><em><span class="hl">No surprises.</span></em></h1>
-        <p class="lede">Pick the plan that fits your business. Get set up the same day. Cancel anytime — no long-term contracts required.</p>
+  <!-- NAV -->
+  <nav>
+    <div class="wrap nav-inner">
+      <a href="index.html" class="logo" aria-label="DocumentorAI home">
+        <svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h8" />
+          <path d="M17 4l6 6" />
+          <path d="M17 4v6h6" />
+          <line x1="10" y1="15" x2="17" y2="15" />
+          <line x1="10" y1="19" x2="14" y2="19" />
+          <path
+            d="M18 18h8a1.5 1.5 0 0 1 1.5 1.5V24a1.5 1.5 0 0 1-1.5 1.5h-4l-3 2.5v-2.5h-1A1.5 1.5 0 0 1 16.5 24v-4.5A1.5 1.5 0 0 1 18 18Z" />
+        </svg>
+        <span class="word">Documentor<span class="ai">AI</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="index.html#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="index.html" class="btn btn-ink btn-sm">Home</a>
       </div>
     </div>
-  </div>
-</section>
+  </nav>
 
-<!-- PRICING CARDS -->
-<section class="section" id="pricing">
-  <div class="wrap">
-    <div class="doc">
-      <div class="gutter">rates<br>per month</div>
-      <div class="main">
-        <div class="price-grid">
-          <div class="price-card">
-            <div class="plan-name">Starter</div>
-            <div class="price">$49<span>/mo</span></div>
-            <div class="plan-desc">For businesses just getting started with AI customer service.</div>
-            <ul class="flist">
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 1 AI chatbot deployment</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Up to 500 conversations/month</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Train on PDF, DOCX &amp; TXT files</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Embed on any website (1 line of code)</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Custom company name &amp; greeting</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Email support</li>
-            </ul>
-            <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Starter%20Plan" class="btn btn-ghost plan-btn">Contact Us — $49/mo</a>
+  <!-- HERO -->
+  <section class="section hero">
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">price<br>list</div>
+        <div class="main">
+          <div class="tag">Plans for every business size</div>
+          <h1>Simple pricing.<br><em><span class="hl">No surprises.</span></em></h1>
+          <p class="lede">Pick the plan that fits your business. Get set up the same day. Cancel anytime — no long-term
+            contracts required.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING CARDS -->
+  <section class="section" id="pricing">
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">rates<br>per month</div>
+        <div class="main">
+          <div class="price-grid">
+            <div class="price-card">
+              <div class="plan-name">Starter</div>
+              <div class="price">$49<span>/mo</span></div>
+              <div class="plan-desc">For businesses just getting started with AI customer service.</div>
+              <ul class="flist">
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> 1 AI chatbot deployment</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Up to 500 conversations/month</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Train on PDF, DOCX &amp; TXT files</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Embed on any website (1 line of code)</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Custom company name &amp; greeting</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Email support</li>
+              </ul>
+              <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Starter%20Plan"
+                class="btn btn-ghost plan-btn">Contact Us — $49/mo</a>
+            </div>
+            <div class="price-card featured">
+              <div class="pop">Most Popular</div>
+              <div class="plan-name">Pro</div>
+              <div class="price">$99<span>/mo</span></div>
+              <div class="plan-desc">For businesses with real support volume that need unlimited capacity.</div>
+              <ul class="flist">
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> 1 AI chatbot deployment</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Unlimited conversations</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Train on PDF, DOCX &amp; TXT files</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Embed on any website (1 line of code)</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Custom branding, greeting &amp; personality</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Priority support</li>
+                <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg> Knowledge base updates anytime</li>
+              </ul>
+              <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Pro%20Plan"
+                class="btn btn-paper plan-btn">Contact Us — $99/mo</a>
+            </div>
           </div>
-          <div class="price-card featured">
-            <div class="pop">Most Popular</div>
-            <div class="plan-name">Pro</div>
-            <div class="price">$99<span>/mo</span></div>
-            <div class="plan-desc">For businesses with real support volume that need unlimited capacity.</div>
-            <ul class="flist">
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 1 AI chatbot deployment</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Unlimited conversations</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Train on PDF, DOCX &amp; TXT files</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Embed on any website (1 line of code)</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Custom branding, greeting &amp; personality</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Priority support</li>
-              <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Knowledge base updates anytime</li>
-            </ul>
-            <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Pro%20Plan" class="btn btn-paper plan-btn">Contact Us — $99/mo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">line<br>by line</div>
+        <div class="main">
+          <div class="lead">
+            <h2>Everything side by side</h2>
+            <p>Not sure which plan is right for you? Here's the full breakdown.</p>
+          </div>
+          <div class="table-wrap">
+            <table class="ctable">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Starter</th>
+                  <th class="col-pro">Pro</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="fname">Monthly price</td>
+                  <td class="val">$49/mo</td>
+                  <td class="val col-pro">$99/mo</td>
+                </tr>
+                <tr>
+                  <td class="fname">AI chatbot deployments</td>
+                  <td class="val">1</td>
+                  <td class="val col-pro">1</td>
+                </tr>
+                <tr>
+                  <td class="fname">Conversations per month</td>
+                  <td class="val">Up to 500</td>
+                  <td class="val col-pro">Unlimited</td>
+                </tr>
+                <tr>
+                  <td class="fname">Train on your documents</td>
+                  <td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                  <td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                </tr>
+                <tr>
+                  <td class="fname">Supported file types</td>
+                  <td class="val">PDF, DOCX, TXT</td>
+                  <td class="val col-pro">PDF, DOCX, TXT</td>
+                </tr>
+                <tr>
+                  <td class="fname">Embed on any website</td>
+                  <td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                  <td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                </tr>
+                <tr>
+                  <td class="fname">Custom company name</td>
+                  <td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                  <td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                </tr>
+                <tr>
+                  <td class="fname">Custom greeting message</td>
+                  <td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                  <td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                </tr>
+                <tr>
+                  <td class="fname">Custom AI personality</td>
+                  <td><span class="no">—</span></td>
+                  <td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                </tr>
+                <tr>
+                  <td class="fname">Knowledge base updates</td>
+                  <td class="val">Anytime</td>
+                  <td class="val col-pro">Anytime</td>
+                </tr>
+                <tr>
+                  <td class="fname">Support</td>
+                  <td class="val">Email</td>
+                  <td class="val col-pro">Priority email</td>
+                </tr>
+                <tr>
+                  <td class="fname">Powered by GPT-4o</td>
+                  <td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                  <td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                </tr>
+                <tr>
+                  <td class="fname">Cancel anytime</td>
+                  <td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                  <td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- COMPARE -->
-<section class="section section-alt">
-  <div class="wrap">
-    <div class="doc">
-      <div class="gutter">line<br>by line</div>
-      <div class="main">
-        <div class="lead">
-          <h2>Everything side by side</h2>
-          <p>Not sure which plan is right for you? Here's the full breakdown.</p>
-        </div>
-        <div class="table-wrap">
-          <table class="ctable">
-            <thead>
-              <tr><th>Feature</th><th>Starter</th><th class="col-pro">Pro</th></tr>
-            </thead>
-            <tbody>
-              <tr><td class="fname">Monthly price</td><td class="val">$49/mo</td><td class="val col-pro">$99/mo</td></tr>
-              <tr><td class="fname">AI chatbot deployments</td><td class="val">1</td><td class="val col-pro">1</td></tr>
-              <tr><td class="fname">Conversations per month</td><td class="val">Up to 500</td><td class="val col-pro">Unlimited</td></tr>
-              <tr><td class="fname">Train on your documents</td><td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td><td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td></tr>
-              <tr><td class="fname">Supported file types</td><td class="val">PDF, DOCX, TXT</td><td class="val col-pro">PDF, DOCX, TXT</td></tr>
-              <tr><td class="fname">Embed on any website</td><td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td><td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td></tr>
-              <tr><td class="fname">Custom company name</td><td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td><td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td></tr>
-              <tr><td class="fname">Custom greeting message</td><td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td><td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td></tr>
-              <tr><td class="fname">Custom AI personality</td><td><span class="no">—</span></td><td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td></tr>
-              <tr><td class="fname">Knowledge base updates</td><td class="val">Anytime</td><td class="val col-pro">Anytime</td></tr>
-              <tr><td class="fname">Support</td><td class="val">Email</td><td class="val col-pro">Priority email</td></tr>
-              <tr><td class="fname">Powered by GPT-4o</td><td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td><td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td></tr>
-              <tr><td class="fname">Cancel anytime</td><td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td><td class="col-pro"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="section">
-  <div class="wrap">
-    <div class="doc">
-      <div class="gutter">queries</div>
-      <div class="main">
-        <div class="lead">
-          <h2>Common questions</h2>
-          <p>Still have questions? Email us at jonahkutikov@gmail.com.</p>
-        </div>
-        <div class="faq-item">
-          <div class="q-mark">Q.</div>
-          <div><div class="faq-q">How do I get started?</div><div class="faq-a">Email us at jonahkutikov@gmail.com and tell us which plan you're interested in. We'll get your chatbot configured and deployed — no technical knowledge needed on your end.</div></div>
-        </div>
-        <div class="faq-item">
-          <div class="q-mark">Q.</div>
-          <div><div class="faq-q">What documents can I use to train the AI?</div><div class="faq-a">You can upload PDF files, Word documents (.docx), or plain text files (.txt). Great candidates include your FAQ page, product catalog, policies, pricing guide, or any support documentation you already have.</div></div>
-        </div>
-        <div class="faq-item">
-          <div class="q-mark">Q.</div>
-          <div><div class="faq-q">How does the chatbot get embedded on my website?</div><div class="faq-a">We give you a single line of code to paste into your website. It works on Shopify, Webflow, WordPress, Wix, Squarespace, or any custom site. The chat widget appears in the bottom-right corner of your site automatically.</div></div>
-        </div>
-        <div class="faq-item">
-          <div class="q-mark">Q.</div>
-          <div><div class="faq-q">Can I update the knowledge base after setup?</div><div class="faq-a">Yes — you can upload a new document at any time through your admin panel. Updates go live instantly. There's no limit on how often you can do this.</div></div>
-        </div>
-        <div class="faq-item">
-          <div class="q-mark">Q.</div>
-          <div><div class="faq-q">What counts as a "conversation"?</div><div class="faq-a">A conversation is a single session where a visitor opens the chat widget and sends at least one message. Multiple back-and-forth messages within the same session count as one conversation.</div></div>
-        </div>
-        <div class="faq-item">
-          <div class="q-mark">Q.</div>
-          <div><div class="faq-q">Is there a contract or commitment?</div><div class="faq-a">No long-term contracts. All plans are month-to-month and you can cancel anytime by emailing us. There are no cancellation fees.</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta">
-  <div class="wrap">
-    <div class="doc">
-      <div class="gutter">sign<br>off</div>
-      <div class="main">
-        <h2>Ready to <span class="hl">get started?</span></h2>
-        <p>Send us an email and we'll get your AI assistant up and running.</p>
-        <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Inquiry" class="btn btn-primary btn-lg">✉ Get in Touch</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="wrap">
-    <div class="doc">
-      <div class="gutter">colophon</div>
-      <div class="main">
-        <div class="foot-top">
-          <div>
-            <a href="index.html" class="logo" aria-label="DocumentorAI home">
-              <svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M17 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h8"/>
-                <path d="M17 4l6 6"/><path d="M17 4v6h6"/>
-                <line x1="10" y1="15" x2="17" y2="15"/><line x1="10" y1="19" x2="14" y2="19"/>
-                <path d="M18 18h8a1.5 1.5 0 0 1 1.5 1.5V24a1.5 1.5 0 0 1-1.5 1.5h-4l-3 2.5v-2.5h-1A1.5 1.5 0 0 1 16.5 24v-4.5A1.5 1.5 0 0 1 18 18Z"/>
-              </svg>
-              <span class="word">Documentor<span class="ai">AI</span></span>
-            </a>
-            <p class="foot-tag">AI customer service for every business.</p>
+  <!-- FAQ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">queries</div>
+        <div class="main">
+          <div class="lead">
+            <h2>Common questions</h2>
+            <p>Still have questions? Email us at jonahkutikov@gmail.com.</p>
           </div>
-          <nav class="foot-links" aria-label="Footer">
-            <a href="index.html#how-it-works">How it works</a>
-            <a href="#pricing">Pricing</a>
-            <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Inquiry">Contact</a>
-          </nav>
-        </div>
-        <div class="foot-rule">
-          <span>© 2026 DocumentorAI</span>
-          <a href="mailto:jonahkutikov@gmail.com">jonahkutikov@gmail.com</a>
+          <div class="faq-item">
+            <div class="q-mark">Q.</div>
+            <div>
+              <div class="faq-q">How do I get started?</div>
+              <div class="faq-a">Email us at jonahkutikov@gmail.com and tell us which plan you're interested in. We'll
+                get your chatbot configured and deployed — no technical knowledge needed on your end.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="q-mark">Q.</div>
+            <div>
+              <div class="faq-q">What documents can I use to train the AI?</div>
+              <div class="faq-a">You can upload PDF files, Word documents (.docx), or plain text files (.txt). Great
+                candidates include your FAQ page, product catalog, policies, pricing guide, or any support documentation
+                you already have.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="q-mark">Q.</div>
+            <div>
+              <div class="faq-q">How does the chatbot get embedded on my website?</div>
+              <div class="faq-a">We give you a single line of code to paste into your website. It works on Shopify,
+                Webflow, WordPress, Wix, Squarespace, or any custom site. The chat widget appears in the bottom-right
+                corner of your site automatically.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="q-mark">Q.</div>
+            <div>
+              <div class="faq-q">Can I update the knowledge base after setup?</div>
+              <div class="faq-a">Yes — you can upload a new document at any time through your admin panel. Updates go
+                live instantly. There's no limit on how often you can do this.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="q-mark">Q.</div>
+            <div>
+              <div class="faq-q">What counts as a "conversation"?</div>
+              <div class="faq-a">A conversation is a single session where a visitor opens the chat widget and sends at
+                least one message. Multiple back-and-forth messages within the same session count as one conversation.
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="q-mark">Q.</div>
+            <div>
+              <div class="faq-q">Is there a contract or commitment?</div>
+              <div class="faq-a">No long-term contracts. All plans are month-to-month and you can cancel anytime by
+                emailing us. There are no cancellation fees.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</footer>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">sign<br>off</div>
+        <div class="main">
+          <h2>Ready to <span class="hl">get started?</span></h2>
+          <p>Send us an email and we'll get your AI assistant up and running.</p>
+          <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Inquiry" class="btn btn-primary btn-lg">✉ Get in
+            Touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">colophon</div>
+        <div class="main">
+          <div class="foot-top">
+            <div>
+              <a href="index.html" class="logo" aria-label="DocumentorAI home">
+                <svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M17 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h8" />
+                  <path d="M17 4l6 6" />
+                  <path d="M17 4v6h6" />
+                  <line x1="10" y1="15" x2="17" y2="15" />
+                  <line x1="10" y1="19" x2="14" y2="19" />
+                  <path
+                    d="M18 18h8a1.5 1.5 0 0 1 1.5 1.5V24a1.5 1.5 0 0 1-1.5 1.5h-4l-3 2.5v-2.5h-1A1.5 1.5 0 0 1 16.5 24v-4.5A1.5 1.5 0 0 1 18 18Z" />
+                </svg>
+                <span class="word">Documentor<span class="ai">AI</span></span>
+              </a>
+              <p class="foot-tag">AI customer service for every business.</p>
+            </div>
+            <nav class="foot-links" aria-label="Footer">
+              <a href="index.html#how-it-works">How it works</a>
+              <a href="#pricing">Pricing</a>
+              <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Inquiry">Contact</a>
+            </nav>
+          </div>
+          <div class="foot-rule">
+            <span>© 2026 DocumentorAI</span>
+            <a href="mailto:jonahkutikov@gmail.com">jonahkutikov@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 </body>
+
 </html>
