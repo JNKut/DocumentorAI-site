@@ -657,7 +657,8 @@
       }
 
       .doc {
-        grid-template-columns: 1fr;
+        /* minmax(0, ...) lets wide content (code, tables) scroll instead of widening the page */
+        grid-template-columns: minmax(0, 1fr);
       }
 
       .doc>.gutter {
