@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Install guide — DocumentorAI</title>
+  <meta name="description" content="How to add your DocumentorAI chat assistant to WordPress, Shopify, Wix, Squarespace, Webflow or any website in a couple of minutes." />
+  <link rel="canonical" href="https://documentorai.org/install.html" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="DocumentorAI" />
+  <meta property="og:title" content="Install guide — DocumentorAI" />
+  <meta property="og:description" content="How to add your DocumentorAI chat assistant to WordPress, Shopify, Wix, Squarespace, Webflow or any website in a couple of minutes." />
+  <meta property="og:url" content="https://documentorai.org/install.html" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Install guide — DocumentorAI" />
+  <meta name="twitter:description" content="How to add your DocumentorAI chat assistant to WordPress, Shopify, Wix, Squarespace, Webflow or any website in a couple of minutes." />
+  <meta name="description" content="Deploy an AI chat assistant trained on your own documents and add it to any website with one line of code. Plans from $49/month." />
+  <link rel="canonical" href="https://documentorai.org/" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="DocumentorAI" />
+  <meta property="og:title" content="DocumentorAI — AI Customer Service for Any Business" />
+  <meta property="og:description" content="Deploy an AI chat assistant trained on your own documents and add it to any website with one line of code. Plans from $49/month." />
+  <meta property="og:url" content="https://documentorai.org/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="DocumentorAI — AI Customer Service for Any Business" />
+  <meta name="twitter:description" content="Deploy an AI chat assistant trained on your own documents and add it to any website with one line of code. Plans from $49/month." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --paper: #FCFCFA;
+      --ink: #16150F;
+      --slate: #57554C;
+      --graphite: #D8D6CC;
+      --graphite-soft: #ECEAE2;
+      --hl: #FFE14D;
+      --hl-soft: #FFF3B8;
+      --pen: #26235C;
+      --pen-soft: #ECEBF4;
+      --display: 'Fraunces', Georgia, 'Times New Roman', serif;
+      --body: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+      --gutter: 150px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--body);
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--hl);
+      color: var(--ink);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--pen);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 44px);
+    }
+
+    /* DOCUMENT GRID — content hangs off a continuous margin rule */
+    .doc {
+      display: grid;
+      grid-template-columns: var(--gutter) minmax(0, 1fr);
+    }
+
+    .doc>.gutter {
+      text-align: right;
+      padding-right: 30px;
+      padding-top: 6px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    .doc>.gutter .num {
+      display: block;
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .doc>.main {
+      border-left: 1px solid var(--graphite);
+      padding-left: clamp(26px, 4vw, 60px);
+    }
+
+    .section>.wrap>.doc>.main {
+      padding-top: clamp(58px, 8vw, 96px);
+      padding-bottom: clamp(58px, 8vw, 96px);
+    }
+
+    /* MARKER HIGHLIGHT */
+    .hl {
+      background-image: linear-gradient(var(--hl), var(--hl));
+      background-repeat: no-repeat;
+      background-position: 0 82%;
+      background-size: 100% 40%;
+      padding: 0 0.04em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-swipe {
+      background-size: 0% 40%;
+      animation: swipe 0.85s 0.55s cubic-bezier(.22, .61, .36, 1) forwards;
+    }
+
+    @keyframes swipe {
+      to {
+        background-size: 100% 40%;
+      }
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(252, 252, 250, 0.85);
+      backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 1px solid var(--graphite);
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .logo .mark {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      color: var(--ink);
+    }
+
+    .logo .word {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 21px;
+      letter-spacing: -0.4px;
+    }
+
+    .logo .word .ai {
+      background-image: linear-gradient(var(--hl), var(--hl));
+      background-repeat: no-repeat;
+      background-position: 0 78%;
+      background-size: 100% 42%;
+      padding: 0 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-links a:not(.btn) {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      letter-spacing: 0.3px;
+      color: var(--slate);
+      text-transform: uppercase;
+      transition: color .15s;
+    }
+
+    .nav-links a:not(.btn):hover {
+      color: var(--ink);
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: transform .14s ease, background .15s, box-shadow .15s, color .15s;
+    }
+
+    .btn-sm {
+      padding: 9px 18px;
+      font-size: 13.5px;
+    }
+
+    .btn-lg {
+      padding: 15px 26px;
+      font-size: 15.5px;
+    }
+
+    .btn-primary {
+      background: var(--pen);
+      color: var(--paper);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    .btn-primary:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .btn-primary:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+    }
+
+    .btn-ghost:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn-ink {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn-ink:hover {
+      transform: translateY(-1px);
+    }
+
+    /* HERO */
+    .hero .main {
+      padding-top: clamp(64px, 9vw, 108px);
+      padding-bottom: clamp(56px, 8vw, 92px);
+    }
+
+    .hero .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--pen);
+      margin-bottom: 26px;
+    }
+
+    .hero .tag::before {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background: var(--pen);
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: 1.0;
+      letter-spacing: -1.5px;
+      max-width: 13ch;
+      margin-bottom: 26px;
+      font-optical-sizing: auto;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .hero .lede {
+      font-size: clamp(17px, 2.3vw, 21px);
+      color: var(--slate);
+      max-width: 56ch;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .embed {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 34px;
+    }
+
+    .embed .embed-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--slate);
+    }
+
+    .embed code {
+      font-family: var(--mono);
+      font-size: clamp(12px, 1.6vw, 14px);
+      color: var(--ink);
+      background: var(--hl-soft);
+      border: 1px solid var(--graphite);
+      padding: 11px 16px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .embed code .t {
+      color: var(--pen);
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-checks {
+      margin-top: 26px;
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--slate);
+    }
+
+    .hero-checks span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .hero-checks svg {
+      width: 14px;
+      height: 14px;
+      color: var(--pen);
+    }
+
+    /* SECTION HEADS */
+    .section-alt {
+      background: var(--graphite-soft);
+    }
+
+    .lead h2 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(28px, 4.4vw, 46px);
+      letter-spacing: -1px;
+      line-height: 1.05;
+      margin-bottom: 14px;
+      max-width: 18ch;
+    }
+
+    .lead p {
+      font-size: 18px;
+      color: var(--slate);
+      max-width: 52ch;
+      line-height: 1.6;
+    }
+
+    .lead {
+      margin-bottom: 54px;
+    }
+
+    /* STEPS — a real sequence, numbered as clauses on the rule */
+    .step {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: 0;
+      padding: 30px 0;
+      border-top: 1px solid var(--graphite);
+    }
+
+    .step:first-child {
+      border-top: none;
+      padding-top: 6px;
+    }
+
+    .step .s-num {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 30px;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .step .s-body h3 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 23px;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+    }
+
+    .step .s-body p {
+      font-size: 16px;
+      color: var(--slate);
+      line-height: 1.6;
+      max-width: 56ch;
+    }
+
+    .step .s-body .s-icon {
+      float: right;
+      width: 30px;
+      height: 30px;
+      color: var(--graphite);
+    }
+
+    /* FEATURES */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+      gap: 0;
+      border-top: 1px solid var(--graphite);
+      border-left: 1px solid var(--graphite);
+    }
+
+    .feat {
+      padding: 26px 24px;
+      border-right: 1px solid var(--graphite);
+      border-bottom: 1px solid var(--graphite);
+      transition: background .18s;
+    }
+
+    .feat:hover {
+      background: var(--hl-soft);
+    }
+
+    .feat .f-icon {
+      width: 26px;
+      height: 26px;
+      color: var(--pen);
+      margin-bottom: 16px;
+    }
+
+    .feat h3 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 17.5px;
+      letter-spacing: -0.2px;
+      margin-bottom: 7px;
+    }
+
+    .feat p {
+      font-size: 13.5px;
+      color: var(--slate);
+      line-height: 1.55;
+    }
+
+    /* PRICING */
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      max-width: 760px;
+    }
+
+    .price-card {
+      background: var(--paper);
+      border: 1px solid var(--ink);
+      border-radius: 3px;
+      padding: 32px 30px;
+      position: relative;
+    }
+
+    .price-card.featured {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .pop {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      background: var(--hl);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+    }
+
+    .plan-name {
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--slate);
+      margin-bottom: 16px;
+    }
+
+    .price-card.featured .plan-name {
+      color: var(--hl);
+    }
+
+    .price {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 52px;
+      letter-spacing: -1.5px;
+      line-height: 1;
+    }
+
+    .price span {
+      font-family: var(--body);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--slate);
+    }
+
+    .price-card.featured .price span {
+      color: #B7B5C9;
+    }
+
+    .plan-desc {
+      font-size: 14.5px;
+      color: var(--slate);
+      margin: 12px 0 26px;
+      line-height: 1.5;
+    }
+
+    .price-card.featured .plan-desc {
+      color: #C7C5D6;
+    }
+
+    .flist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .flist li {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      font-size: 14.5px;
+      color: var(--ink);
+    }
+
+    .price-card.featured .flist li {
+      color: #E9E8EF;
+    }
+
+    .flist .ck {
+      flex-shrink: 0;
+      margin-top: 2px;
+      width: 15px;
+      height: 15px;
+      color: var(--pen);
+    }
+
+    .price-card.featured .flist .ck {
+      color: var(--hl);
+    }
+
+    .plan-btn {
+      width: 100%;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--graphite-soft);
+      color: var(--ink);
+      border-top: 1px solid var(--graphite);
+    }
+
+    footer .doc>.main {
+      border-left-color: var(--graphite);
+      padding-top: 52px;
+      padding-bottom: 40px;
+    }
+
+    footer .doc>.gutter {
+      color: var(--slate);
+    }
+
+    .foot-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .foot-tag {
+      font-size: 14px;
+      color: var(--slate);
+      max-width: 30ch;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    .foot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .foot-links a {
+      color: var(--slate);
+    }
+
+    .foot-links a:hover {
+      color: var(--pen);
+    }
+
+    .foot-rule {
+      margin-top: 40px;
+      padding-top: 22px;
+      border-top: 1px solid var(--graphite);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--slate);
+    }
+
+    .foot-rule a:hover {
+      color: var(--pen);
+    }
+
+    @media (max-width: 760px) {
+      html {
+        overflow-x: hidden;
+      }
+
+      :root {
+        --gutter: 0px;
+      }
+
+      .section {
+        padding: 56px 0;
+      }
+
+      .doc {
+        grid-template-columns: 1fr;
+      }
+
+      .doc>.gutter {
+        text-align: left;
+        padding-right: 0;
+        padding-top: 0;
+        margin-bottom: 12px;
+      }
+
+      .doc>.main {
+        border-left: none;
+        padding-left: 0;
+      }
+
+      .nav-links a:not(.btn) {
+        display: none;
+      }
+
+      .embed {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        width: 100%;
+      }
+
+      .embed code {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .hero-checks {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .step .s-body .s-icon {
+        display: none;
+      }
+
+      .feat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .foot-top {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .foot-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+      }
+
+      .foot-rule {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .hl-swipe {
+        animation: none;
+        background-size: 100% 40%;
+      }
+
+      .btn,
+      .feat {
+        transition: none;
+      }
+    }
+
+    /* LONG-FORM PAGES (terms, privacy, install) */
+    .prose { max-width: 720px; }
+    .prose .tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--pen); }
+    .prose .tag::before { content: ""; width: 22px; height: 1px; background: var(--pen); display: inline-block; }
+    @media (min-width: 761px) {
+      .page-doc>.gutter { padding-top: calc(clamp(58px, 8vw, 96px) + 6px); }
+    }
+    .prose h1 { font-family: var(--display); font-weight: 600; font-size: clamp(34px, 5vw, 50px); line-height: 1.08; letter-spacing: -0.9px; margin: 14px 0 12px; }
+    .prose .updated { font-family: var(--mono); font-size: 12px; letter-spacing: .4px; text-transform: uppercase; color: var(--slate); margin-bottom: 34px; }
+    .prose .intro { font-size: 18px; color: var(--slate); margin-bottom: 28px; }
+    .prose h2 { font-family: var(--display); font-weight: 600; font-size: 23px; letter-spacing: -0.3px; margin: 40px 0 10px; }
+    .prose h3 { font-size: 16px; font-weight: 700; margin: 22px 0 6px; }
+    .prose p, .prose li { margin-bottom: 12px; }
+    .prose ul, .prose ol { padding-left: 22px; margin-bottom: 14px; }
+    .prose a { color: var(--pen); text-decoration: underline; text-underline-offset: 3px; }
+    .prose code { font-family: var(--mono); font-size: 13px; background: var(--graphite-soft); padding: 1px 5px; border-radius: 2px; }
+    .prose pre { font-family: var(--mono); font-size: 13px; background: var(--graphite-soft); border: 1px solid var(--graphite); padding: 14px 16px; overflow-x: auto; margin: 8px 0 18px; }
+    .prose pre code { background: none; padding: 0; }
+    .prose .note { border-left: 3px solid var(--hl); background: var(--hl-soft); padding: 12px 16px; margin: 18px 0; }
+    .prose table { border-collapse: collapse; width: 100%; margin: 8px 0 18px; font-size: 15px; }
+    .prose th, .prose td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--graphite); }
+    .prose th { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .4px; color: var(--slate); font-weight: 500; }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="wrap nav-inner">
+      <a href="index.html" class="logo" aria-label="DocumentorAI home">
+        <svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h8" />
+          <path d="M17 4l6 6" />
+          <path d="M17 4v6h6" />
+          <line x1="10" y1="15" x2="17" y2="15" />
+          <line x1="10" y1="19" x2="14" y2="19" />
+          <path
+            d="M18 18h8a1.5 1.5 0 0 1 1.5 1.5V24a1.5 1.5 0 0 1-1.5 1.5h-4l-3 2.5v-2.5h-1A1.5 1.5 0 0 1 16.5 24v-4.5A1.5 1.5 0 0 1 18 18Z" />
+        </svg>
+        <span class="word">Documentor<span class="ai">AI</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="index.html#features">Features</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="pricing.html" class="btn btn-ink btn-sm">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="doc page-doc">
+        <div class="gutter">install</div>
+        <div class="main prose">
+          <div class="tag">Install guide</div>
+          <h1>Add your assistant to your website</h1>
+          <p class="intro">It takes one line of code and about two minutes. You don't need a developer.</p>
+
+          <h2>1. Get your line of code</h2>
+          <p>When your assistant is ready we'll email you a line that looks like this, with your assistant's address in place of <code>your-assistant-url</code>:</p>
+          <pre><code>&lt;script src="https://your-assistant-url/widget.js"&gt;&lt;/script&gt;</code></pre>
+          <p>Paste it once so it loads on every page. The chat button appears in the bottom-right corner.</p>
+
+          <h2>2. Paste it into your site</h2>
+
+          <h3>WordPress</h3>
+          <ol>
+            <li>Install a header and footer code plugin, such as <em>WPCode</em>, from <strong>Plugins → Add New</strong>.</li>
+            <li>Open the plugin's <strong>Header &amp; Footer</strong> screen.</li>
+            <li>Paste the line into the <strong>Footer</strong> box and save.</li>
+          </ol>
+
+          <h3>Shopify</h3>
+          <ol>
+            <li>Go to <strong>Online Store → Themes</strong>, click <strong>⋯</strong> next to your live theme, and choose <strong>Edit code</strong>.</li>
+            <li>Open <code>layout/theme.liquid</code>.</li>
+            <li>Paste the line just above <code>&lt;/body&gt;</code> and click <strong>Save</strong>.</li>
+          </ol>
+
+          <h3>Wix</h3>
+          <ol>
+            <li>In your dashboard, go to <strong>Settings → Custom Code</strong> (under Advanced). Wix requires a premium plan with a connected domain for this.</li>
+            <li>Click <strong>+ Add Custom Code</strong> and paste the line.</li>
+            <li>Choose <strong>All pages</strong>, <strong>Load code once</strong>, and <strong>Body - end</strong>, then <strong>Apply</strong>.</li>
+          </ol>
+
+          <h3>Squarespace</h3>
+          <ol>
+            <li>Go to <strong>Settings → Advanced → Code Injection</strong>. Code Injection is only available on some Squarespace plans.</li>
+            <li>Paste the line into the <strong>Footer</strong> box and save.</li>
+          </ol>
+
+          <h3>Webflow</h3>
+          <ol>
+            <li>Open <strong>Site settings → Custom code</strong>.</li>
+            <li>Paste the line into <strong>Footer code</strong>, save, and <strong>Publish</strong> your site. Custom code requires a paid site plan.</li>
+          </ol>
+
+          <h3>Any other website</h3>
+          <p>Paste the line just before the closing <code>&lt;/body&gt;</code> tag on every page, or in your site's shared footer template.</p>
+
+          <h2>3. Check it</h2>
+          <p>Open your published site in a new browser window. You should see the chat button in the bottom-right corner. Ask it a question about your business to make sure it's using your documents.</p>
+
+          <h2>Options</h2>
+          <p>To show the button in the bottom-left corner instead, add <code>data-position</code>:</p>
+          <pre><code>&lt;script src="https://your-assistant-url/widget.js" data-position="bottom-left"&gt;&lt;/script&gt;</code></pre>
+          <div class="note">We can also lock your assistant so it only appears on your own domains. Email us the addresses of your sites and we'll set it up.</div>
+
+          <h2>Not showing up?</h2>
+          <ul>
+            <li>Make sure you published or saved the change on your live site, then reload with a hard refresh (Ctrl+Shift+R, or Cmd+Shift+R on a Mac).</li>
+            <li>Check the line was pasted exactly as we sent it, with nothing missing at the start or end.</li>
+            <li>Some ad blockers hide chat widgets. Try a private window with extensions turned off.</li>
+            <li>Still stuck? Email <a href="mailto:jonahkutikov@gmail.com">jonahkutikov@gmail.com</a> with your website address and we'll take a look.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="doc">
+        <div class="gutter">colophon</div>
+        <div class="main">
+          <div class="foot-top">
+            <div>
+              <a href="index.html" class="logo" aria-label="DocumentorAI home">
+                <svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M17 4H8a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h8" />
+                  <path d="M17 4l6 6" />
+                  <path d="M17 4v6h6" />
+                  <line x1="10" y1="15" x2="17" y2="15" />
+                  <line x1="10" y1="19" x2="14" y2="19" />
+                  <path
+                    d="M18 18h8a1.5 1.5 0 0 1 1.5 1.5V24a1.5 1.5 0 0 1-1.5 1.5h-4l-3 2.5v-2.5h-1A1.5 1.5 0 0 1 16.5 24v-4.5A1.5 1.5 0 0 1 18 18Z" />
+                </svg>
+                <span class="word">Documentor<span class="ai">AI</span></span>
+              </a>
+              <p class="foot-tag">AI customer service for every business.</p>
+            </div>
+            <nav class="foot-links" aria-label="Footer">
+              <a href="index.html#how-it-works">How it works</a>
+              <a href="pricing.html">Pricing</a>
+              <a href="install.html">Install guide</a>
+              <a href="terms.html">Terms</a>
+              <a href="privacy.html">Privacy</a>
+              <a href="mailto:jonahkutikov@gmail.com?subject=DocumentorAI%20Inquiry">Contact</a>
+            </nav>
+          </div>
+          <div class="foot-rule">
+            <span>© 2026 DocumentorAI</span>
+            <a href="mailto:jonahkutikov@gmail.com">jonahkutikov@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://documentorai-production.up.railway.app/widget.js"></script>
+</body>
+</html>
