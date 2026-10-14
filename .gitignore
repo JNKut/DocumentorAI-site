@@ -1,0 +1,4 @@
+node_modules
+.DS_Store
+# Upload via /admin; not part of the public site
+documentorai-knowledge-base.txt
